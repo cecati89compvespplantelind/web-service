@@ -1,0 +1,428 @@
+El siguiente gran problema que encuentran las personas es que necesitan colaborar con 
+los desarrolladores en  otros sistemas Para hacer frente a este problema, los Sistemas 
+de Control de Versiones Centralizados (CVCS) fueron desarrollado. 
+Estos sistemas (como CVS, Subversion y Perforce) tienen un solo servidor que contiene
+todos los archivos versionados y una serie de clientes que extraen archivos de ese lugar
+ central. Para muchos años, este ha sido el estándar para el control de versiones.
+
+Esta configuración ofrece muchas ventajas, especialmente sobre los VCS locales. 
+Por ejemplo, todo el mundo sabe hasta un cierto grado lo que están haciendo todos los 
+demás en el proyecto. Los administradores tienen un control detallado sobre quién puede
+hacer qué, y es mucho más fácil administrar un CVCS que tratar con bases de datos locales
+en cada cliente.
+
+Sin embargo, esta configuración también tiene algunas desventajas serias.
+El más obvio es el punto único de falla.
+que representa el servidor centralizado. Si ese servidor se cae durante una hora, entonces 
+durante esa hora nadie puede colaborar en absoluto ni guardar cambios versionados en nada 
+en lo que esté trabajando. si el disco duro en el que se encuentra la base de datos
+ central se corrompe y no se han realizado las copias de seguridad adecuadas, pierde
+absolutamente todo??la historia completa del proyecto excepto las instantáneas 
+individuales que la gente tienen en sus máquinas locales. Los VCS locales sufren este 
+mismo problema??siempre que tener toda la historia del proyecto en un solo lugar,
+corre el riesgo de perderlo todo.
+
+Sistemas de control de versiones distribuidos
+Aquí es donde intervienen los sistemas de control de versiones distribuidos (DVCS).
+ En un DVCS (como Git, Mercurial,Bazaar o Darcs), los clientes no solo revisan la última
+ instantánea de los archivos; más bien, ellos completamente espejear el repositorio, 
+incluido su historial completo. Por lo tanto, si algún servidor muere, y estos sistemas
+ fueron colaborando a través de ese servidor, cualquiera de los repositorios de clientes
+ se puede copiar en el servidor para restaurarlo Cada clon es realmente una copia de 
+seguridad completa de todos los datos.
+
+Además, muchos de estos sistemas manejan bastante bien tener varios repositorios remotos 
+que puede trabajar, por lo que puede colaborar con diferentes grupos de personas de 
+diferentes maneras simultáneamente dentro del mismo proyecto. Esto le permite configurar
+ varios tipos de flujos de trabajo que no son posibles en sistemas centralizados, como
+ los modelos jerárquicos.
+
+Como ocurre con muchas grandes cosas de la vida, Git comenzó con un poco de destrucción creativa y una feroz controversia.
+El kernel de Linux es un proyecto de software de código abierto de alcance bastante amplio. Durante los primeros años de
+el mantenimiento del kernel de Linux (1991-2002), los cambios en el software se transmitieron como parches
+y archivos archivados. En 2002, el proyecto del kernel de Linux comenzó a usar un DVCS patentado llamado
+BitKeeper.
+En 2005, la relación entre la comunidad que desarrolló el kernel de Linux y la empresa
+ comercial que desarrolló BitKeeper colapsó y el estado gratuito de la herramienta
+fue revocado. Esto impulsó a la comunidad de desarrollo de Linux (y en particular a Linus
+ Torvalds, el creador de Linux) para desarrollar su propia herramienta basada en algunas 
+de las lecciones que aprendieron mientras utilizando BitKeeper. Algunos de los objetivos
+ del nuevo sistema eran los siguientes:
+
+  Velocidad
+  Diseño simple
+ Fuerte soporte para el desarrollo no lineal (miles de ramas paralelas)
+ Totalmente distribuido
+ Capaz de manejar proyectos grandes como el kernel de Linux de manera eficiente 
+(velocidad y tamaño de datos) Desde su nacimiento en 2005, Git ha evolucionado y madurado
+ para ser fácil de usar y, sin embargo, conservar estos principios cualidades. Es 
+increíblemente rápido, es muy eficiente con proyectos grandes y tiene una increíble
+sistema de ramificación para desarrollo no lineal 
+
+Entonces, ¿qué es Git en pocas palabras? Esta es una sección importante para absorber,
+ porque si entiendes lo que Git es y los fundamentos de cómo funciona, entonces usar Git
+ de manera efectiva probablemente será mucho más fácil para ti. A medida que aprenda Git,
+intente despejar su mente de las cosas que puede saber sobre otros VCS, como  CVS,
+Subversion o Perforce??hacerlo lo ayudará a evitar confusiones sutiles al usar la 
+herramienta.
+Aunque la interfaz de usuario de Git es bastante similar a estos otros VCS, Git almacena 
+y piensa en información de una manera muy diferente, y comprender estas diferencias le
+ ayudará a evitar confundirse mientras lo usa.
+
+Instantáneas, no diferencias
+La principal diferencia entre Git y cualquier otro VCS (incluidos Subversion y sus amigos)
+ es la forma Git piensa en sus datos. Conceptualmente, la mayoría de los otros sistemas 
+almacenan información como una lista de archivos cambios. Estos otros sistemas 
+(CVS, Subversion, Perforce, Bazaar, etc.) piensan en el información que almacenan como
+ un conjunto de archivos y los cambios realizados en cada archivo a lo largo del tiempo 
+(esto es comúnmente descrito como control de versión basado en delta).
+
+figuras pag 18
+
+Git no piensa ni almacena sus datos de esta manera. En cambio, Git piensa en sus datos
+ más como una serie de instantáneas de un sistema de archivos en miniatura. Con Git,
+ cada vez que confirmas o guardas el estado de tu proyecto, Git básicamente toma una 
+foto de cómo se ven todos sus archivos en ese momento y almacena una referencia a esa 
+instantánea. Para ser eficiente, si los archivos no han cambiado, Git no vuelve a 
+almacenar el archivo, solo un enlace al archivo idéntico anterior que ya ha almacenado.
+Git piensa en sus datos más como un flujo de instantáneas.
+
+segunda parte figuras  pag 18
+
+Esta es una distinción importante entre Git y casi todos los demás VCS. Hace que Git
+reconsidere casi todos los aspectos del control de versiones que la mayoría de los 
+otros sistemas copiaron del anterior generación. Esto hace que Git se parezca más a
+ un mini sistema de archivos con algunas herramientas increíblemente poderosas integradas
+encima de él, en lugar de simplemente un VCS. Exploraremos algunos de los beneficios
+ que obtiene al pensar en su datos de esta manera cuando cubramos la bifurcación de 
+Git en Git Branching.
+
+Casi todas las operaciones son locales
+La mayoría de las operaciones en Git solo necesitan archivos y recursos locales para operar??
+generalmente no hay información necesario de otra computadora en su red. Si está acostumbrado
+ a un CVCS donde la mayoría de las operaciones tienen esa sobrecarga de latencia de red, este 
+aspecto de Git te hará pensar que los dioses de la velocidad han bendecido a Git con poderes 
+sobrenaturales. Porque tienes toda la historia del proyecto correctamente.
+allí, en su disco local, la mayoría de las operaciones parecen casi instantáneas.
+
+Por ejemplo, para navegar por el historial del proyecto, Git no necesita salir al servidor para obtener el
+historial y mostrarlo para usted??simplemente lo lee directamente desde su base de datos local. Esto significa tu
+ver el historial del proyecto casi al instante. Si quieres ver los cambios introducidos entre el
+versión actual de un archivo y el archivo hace un mes, Git puede buscar el archivo hace un mes y hacer un local
+cálculo de diferencia, en lugar de tener que pedirle a un servidor remoto que lo haga o extraer un
+versión del archivo desde el servidor remoto para hacerlo localmente.
+
+Esto también significa que es muy poco lo que no puede hacer si está desconectado o desconectado de la VPN. Si te subes a un
+avión o un tren y quiere hacer un poco de trabajo, puede comprometerse felizmente (a su copia local,
+¿recuerdas?) hasta que llegues a una conexión de red para cargar. Si te vas a casa y no puedes conseguir tu VPN
+cliente funcionando correctamente, todavía puede trabajar. En muchos otros sistemas, hacerlo es imposible o
+doloroso. En Perforce, por ejemplo, no puedes hacer mucho cuando no estás conectado al servidor; en
+Subversion y CVS, puede editar archivos, pero no puede enviar cambios a su base de datos (porque
+su base de datos está fuera de línea). Esto puede no parecer un gran problema, pero puede que se sorprenda de lo importante que es
+diferencia que puede hacer.
+
+Git generalmente solo agrega datos
+Cuando realiza acciones en Git, casi todas solo agregan datos a la base de datos de Git. Es difícil conseguir
+ el sistema para hacer cualquier cosa que no se pueda deshacer o para hacer que borre datos de alguna manera.
+ Como con cualquier VCS, usted puede perder o estropear los cambios que aún no ha confirmado, pero después de 
+confirmar una instantánea en Git, es muy difícil de perder, especialmente si envía regularmente su base de 
+datos a otro repositorio.
+Esto hace que usar Git sea un placer porque sabemos que podemos experimentar sin el peligro de
+arruinando las cosas. Para obtener una visión más detallada de cómo Git almacena sus datos y cómo puede recuperarlos
+datos que parecen perdidos, consulte Deshacer cosas.
+
+los tres estados
+Preste atención ahora: esto es lo principal que debe recordar acerca de Git si desea que el resto de su
+proceso de aprendizaje para ir sin problemas. Git tiene tres estados principales en los que pueden residir sus archivos: modificado,
+escenificado y comprometido:
+
+• Modificado significa que ha cambiado el archivo pero aún no lo ha enviado a su base de datos.
+• Preparado significa que ha marcado un archivo modificado en su versión actual para pasar a su próxima
+instantánea de confirmación.
+• Comprometido significa que los datos se almacenan de forma segura en su base de datos local.
+Esto nos lleva a las tres secciones principales de un proyecto Git: el árbol de trabajo, el área de preparación y el
+directorio Git.
+
+El flujo de trabajo básico de Git es algo así:
+1. Modifica archivos en su árbol de trabajo.
+2. Organiza de forma selectiva solo aquellos cambios que desea que formen parte de su próxima confirmación, lo que agrega
+sólo aquellos cambios en el área de preparación.
+3. Realiza una confirmación, que toma los archivos tal como están en el área de preparación y almacena esa instantánea
+permanentemente a su directorio Git.
+
+Si una versión particular de un archivo está en el directorio de Git, se considera confirmada. si ha sido
+modificado y agregado al área de preparación, está organizado. Y si se cambió desde que se revisó
+pero no se ha puesto en escena, se modifica. En Conceptos básicos de Git, aprenderá más sobre estos estados y
+cómo puede aprovecharlos u omitir la parte escenificada por completo.
+
+La línea de comando
+Hay muchas maneras diferentes de usar Git. Existen las herramientas de línea de comandos originales, y existen
+Hay muchas interfaces gráficas de usuario de diferentes capacidades. Para este libro, usaremos Git en el
+línea de comando. Por un lado, la línea de comandos es el único lugar donde puede ejecutar todos los comandos de Git, la mayoría
+de las GUI implementan solo un subconjunto parcial de la funcionalidad de Git para simplificar. si sabes como
+ejecutar la versión de línea de comandos, probablemente también pueda descubrir cómo ejecutar la versión GUI, mientras
+lo contrario no es necesariamente cierto. Además, aunque su elección de cliente gráfico es una cuestión de
+gusto personal, todos los usuarios tendrán las herramientas de línea de comandos instaladas y disponibles.
+
+Por lo tanto, esperamos que sepa cómo abrir Terminal en macOS o Símbolo del sistema o PowerShell
+en Windows. Si no sabe de lo que estamos hablando aquí, es posible que deba detenerse e investigar
+rápidamente para que pueda seguir el resto de los ejemplos y descripciones de este libro.
+-----------------------------------------------------------------------------------------------------------
+Instalación en Linux
+Si desea instalar las herramientas básicas de Git en Linux a través de un instalador binario, generalmente puede hacerlo
+a través de la herramienta de administración de paquetes que viene con su distribución. Si está en Fedora (o
+cualquier distribución basada en RPM estrechamente relacionada, como RHEL o CentOS), puede usar dnf:
+
+dnf install git-all -y
+
+Si tiene una distribución basada en Debian, como Ubuntu, pruebe con apt:
+
+apt install git-all
+
+Para obtener más opciones, hay instrucciones para instalar en varias distribuciones de Unix diferentes en el
+Sitio web de Git, en https://git-scm.com/download/linux.
+
+Instalación en Windows
+También hay algunas formas de instalar Git en Windows. La compilación más oficial está disponible para
+descargar en el sitio web de Git. Simplemente vaya a https://git-scm.com/download/win y la descarga se
+iniciar automáticamente. Tenga en cuenta que este es un proyecto llamado Git para Windows, que es independiente de Git
+sí mismo; para obtener más información al respecto, vaya a https://gitforwindows.org.
+Para obtener una instalación automática, puede usar el paquete Git Chocolatey. Tenga en cuenta que el Chocolatey
+el paquete es mantenido por la comunidad.
+
+Para poder añadir la documentación en varios formatos (doc, html, info), estos adicionales
+Se requieren dependencias:
+
+dnf install asciidoc xmlto docbook2X
+
+apt-get install asciidoc xmlto docbook2x -y
+
+Si está utilizando una distribución basada en Debian (Debian/Ubuntu/Ubuntu-derivatives), también necesita la
+paquete de información de instalación:
+
+Si está utilizando una distribución basada en RPM (Fedora/RHEL/RHEL-derivatives), también necesita getopt
+paquete (que ya está instalado en una distribución basada en Debian):
+
+yum install getopt -y
+
+Además, si está utilizando derivados de Fedora/RHEL/RHEL, debe hacer esto:
+
+ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
+
+debido a las diferencias de nombres binarios.
+
+Cuando tenga todas las dependencias necesarias, puede continuar y obtener la última versión etiquetada
+tarball de varios lugares. Puede obtenerlo a través del sitio kernel.org, en https://www.kernel.org/pub/
+software/scm/git, o el espejo en el sitio web de GitHub,en https://github.com/git/git/releases. 
+
+generalmente un poco más claro cuál es la última versión en la página de GitHub, pero la página de kernel.org también
+tiene firmas de liberación si desea verificar su descarga.
+
+Una vez hecho esto, también puede obtener Git a través de Git mismo para obtener actualizaciones:
+
+git clone git://git.kernel.org/pub/scm/git/git.git
+
+Configuración de Git por primera vez
+
+Ahora que tiene Git en su sistema, querrá hacer algunas cosas para personalizar su Git ambiente. 
+Debería tener que hacer estas cosas solo una vez en cualquier computadora; se pegarán entre actualizaciones.
+También puede cambiarlos en cualquier momento ejecutando a través de la comandos de nuevo.
+
+Git viene con una herramienta llamada git config que le permite obtener y establecer variables de configuración que controlan
+todos los aspectos de cómo se ve y opera Git. Estas variables se pueden almacenar en tres lugares diferentes:
+
+1. Archivo [path]/etc/gitconfig: Contiene valores aplicados a cada usuario en el sistema y todos sus
+repositorios Si pasa la opción --system a git config, lee y escribe desde este archivo
+específicamente. Debido a que se trata de un archivo de configuración del sistema, necesitaría información administrativa o
+privilegio de superusuario para realizar cambios en él.
+
+2. Archivo ~/.gitconfig o ~/.config/git/config: valores específicos personalmente para usted, el usuario. Puedes
+hacer que Git lea y escriba en este archivo específicamente al pasar la opción --global, y esto afecta
+todos los repositorios con los que trabaja en su sistema.
+
+3. Archivo de configuración en el directorio Git (es decir, .git/config) de cualquier repositorio que esté actualmente
+usando: Específico para ese único repositorio. Puede obligar a Git a leer y escribir en este archivo con
+la opción --local, pero de hecho es la predeterminada. Como era de esperar, necesita estar ubicado
+en algún lugar de un repositorio de Git para que esta opción funcione correctamente.
+
+Cada nivel anula los valores del nivel anterior, por lo que los valores en .git/config superan a los de
+[path]/etc/gitconfig.
+
+Puede ver todas sus configuraciones y de dónde provienen usando:
+
+git config --list --show-origin
+****************************************************
+Tu identidad
+Lo primero que debe hacer cuando instala Git es configurar su nombre de usuario y dirección de correo electrónico. Este
+es importante porque cada confirmación de Git usa esta información, y está integrada inmutablemente en el
+se compromete a empezar a crear:
+
+git config --global user.name "Miguel Santos"
+
+git config --global user.email miguel.santosmontoya@hotmail.com
+
+Nuevamente, debe hacer esto solo una vez si pasa la opción --global, porque entonces Git siempre
+use esa información para cualquier cosa que haga en ese sistema. Si desea anular esto con un
+nombre o dirección de correo electrónico diferente para proyectos específicos, puede ejecutar el comando sin la
+opción --global cuando estás en ese proyecto.
+
+Muchas de las herramientas GUI le ayudarán a hacer esto cuando las ejecute por primera vez.
+
+Tu editor
+Ahora que su identidad está configurada, puede configurar el editor de texto predeterminado que se usará cuando Git
+necesita que escribas un mensaje. Si no está configurado, Git usa el editor predeterminado de su sistema.
+Si desea utilizar un editor de texto diferente, como Emacs, puede hacer lo siguiente:
+
+git config --global core.editor vi
+
+pag 22 ----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
