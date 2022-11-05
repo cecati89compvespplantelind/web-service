@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Linux Unidad 3</title>
+    <meta content="Miguel Santos Montoya" name="author">
+    <script>
+window.onload=function(){alert('Bienvenido a esta pagina Unidad 3 de LINUX ');}
+window.onunload=function(){alert('Vuelva en otro momento');}
+</script>
+    <meta name="description" content="Virtualizacion">
+    <script type="text/javascript">
+    document.addEventListener("copy", function(event){
+    // Change the copied text if you want
+    event.clipboardData.setData("text/plain", "No se permite copiar en esta página web");
+    
+    // Prevent the default copy action
+    event.preventDefault();
+}, false);
+</script>
+  </head>
+  <body oncontextmenu="return false;" style="color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 204);" vlink="#990099"
+    bgcolor="#ff0000" alink="#000099" link="#000099" text="windowtext">
+    <div style="text-align: center;"><big><big><big style="color:
+            rgb(204, 0, 0);">CE.CA.T.I. No. 89 Celaya, Gto. (Secretaría
+            Educación Pública)</big><br>
+        </big></big></div>
+    <br>
+    <div style="text-align: center;"><img style="width: 246px; height:
+        205px;" alt="" src="../images_main/logo_cecati_celaya.jpg"
+        width="246" height="205"><br>
+    </div>
+    <br>
+    <div style="text-align: center;">
+      <h2>Presentación de la Unidad</h2>
+      <h2>Virtualización<br>
+      </h2>
+    </div>
+    <h2 align="center">LINUX – CentOS</h2>
+    <div align="left">
+      <h3 align="justify">Que es la virtualizacion?</h3>
+      <h3>La virtualización es una tecnología que permite crear
+        servicios de TI útiles, con recursos que están tradicionalmente
+        limitados al hardware. Gracias a que distribuye las funciones de
+        una máquina física entre varios usuarios o entornos, posibilita
+        el uso de toda la capacidad de la máquina.<br>
+        <br>
+        En términos prácticos, imagínese que tiene tres servidores
+        físicos, cada uno con propósitos específicos. Uno es un servidor
+        de correo, otro es un servidor web y el tercero ejecuta
+        aplicaciones heredadas internas. Se utiliza alrededor del 30 %
+        de la capacidad de cada servidor, es decir, solo una parte de su
+        potencial. Pero como las aplicaciones heredadas siguen siendo
+        importantes para sus operaciones internas, tiene que
+        conservarlas junto con el tercer servidor que las aloja,
+        ¿cierto?<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/linux_19.png" alt=""
+        width="500" height="131">
+      <h3 align="justify">Normalmente, la respuesta sería que sí. Por lo
+        general, era más fácil y confiable ejecutar tareas individuales
+        en cada servidor (es decir, un servidor, un sistema operativo y
+        una tarea), ya que no era sencillo asignarle varias. Sin
+        embargo, la virtualización permite dividir el servidor de correo
+        en otros dos únicos que pueden ocuparse de tareas
+        independientes, para poder trasladar las aplicaciones heredadas.
+        Se utiliza el mismo hardware, pero de manera más eficiente.</h3>
+      <p><br>
+        <img moz-do-not-send="true" src="images3/linux_20.png" alt=""
+          width="500" height="131"><br>
+      </p>
+      <h3 align="justify">Si pensamos en la seguridad, es posible volver
+        a dividir el primer servidor para que gestione otra tarea y
+        aumentar su uso de un 30 % a un 60 %, y luego a un 90 %. Una vez
+        que lo logra, los servidores que quedan vacíos se pueden
+        reutilizar para otras tareas o retirarse todos juntos para
+        reducir los costos de refrigeración y mantenimiento.</h3>
+      <h3>¿Cómo funciona la virtualización?<br>
+        El software denominado hipervisor separa los recursos físicos de
+        los entornos virtuales que los necesitan. Los hipervisores
+        pueden controlar un sistema operativo (como una computadora
+        portátil) o instalarse directamente en el hardware (como un
+        servidor), que es la forma en que la mayoría de las empresas
+        implementan la virtualización. Los hipervisores toman los
+        recursos físicos y los dividen de manera tal que los entornos
+        virtuales puedan usarlos.<br>
+      </h3>
+      <h3 align="justify">Los recursos se dividen según las necesidades,
+        desde el entorno físico hasta los numerosos entornos virtuales.
+        Los usuarios interactúan con la informática y la ponen en
+        funcionamiento dentro del entorno virtual (generalmente
+        denominado máquina guest o máquina virtual). La máquina virtual
+        funciona como un archivo de datos único; por eso, tal como
+        ocurre con cualquier archivo digital, es posible trasladarla de
+        una computadora a otra, abrirla en cualquiera de ellas, y tener
+        la tranquilidad de que funcionará de la misma forma.<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/linux_21.png" alt=""
+        width="400" height="217"><br>
+      <br>
+      <h3 align="justify">Cuando el entorno virtual se está ejecutando,
+        y un usuario o programa emite una instrucción que requiere
+        recursos adicionales del entorno físico, el hipervisor transmite
+        la solicitud al sistema físico y almacena los cambios en la
+        caché. Todo esto sucede prácticamente a la misma velocidad que
+        habría si este proceso se realizara dentro de la máquina física
+        (en especial, si la solicitud se envía a través de un hipervisor
+        open source diseñado a partir de la máquina virtual basada en el
+        kernel [KVM]).</h3>
+      <h2>Tipos de virtualización</h2>
+      <h3 align="justify"><font color="#cc33cc">Virtualización de los
+          datos .-</font> Los datos que se encuentran distribuidos en
+        varias ubicaciones pueden consolidarse en una sola fuente. La
+        virtualización de los datos posibilita que las empresas los
+        traten como si fueran un suministro dinámico, ya que proporciona
+        funciones de procesamiento que permiten reunir datos de varias
+        fuentes, incorporar fuentes nuevas fácilmente y transformar los
+        datos según las necesidades de los usuarios. Las herramientas
+        que forman parte de este proceso interactúan con varias fuentes
+        de datos y permiten tratarlas como si fueran solo una. Gracias a
+        ello, cualquier aplicación o usuario puede obtener los datos que
+        necesita, de la manera que los requiere en el momento justo.<br>
+      </h3>
+      <h3 align="justify"><font color="#cc33cc">Virtualización de
+          escritorios .-</font> La virtualización de escritorios suele
+        confundirse con la virtualización de los sistemas operativos, la
+        cual permite implementar muchos de estos en una sola máquina.
+        Sin embargo, la primera posibilita que un administrador central
+        o una herramienta de administración automatizada implementen
+        entornos simulados de escritorio en cientos de máquinas físicas
+        al mismo tiempo. A diferencia de los entornos de escritorio
+        tradicionales que se instalan, configuran y actualizan
+        físicamente en cada máquina, la virtualización de escritorios
+        permite que los administradores realicen múltiples
+        configuraciones, actualizaciones y controles de seguridad en
+        todos los escritorios virtuales.<br>
+      </h3>
+      <h3 align="justify"><font color="#cc33cc">Virtualización de los
+          servidores .-</font> Los servidores son computadoras diseñadas
+        para procesar un gran volumen de tareas específicas de forma muy
+        efectiva para que otras computadoras (portátiles o de
+        escritorio) puedan ejecutar otros procesos. La virtualización de
+        un servidor, que implica dividirlo para que sus elementos puedan
+        utilizarse para realizar varias tareas, permite ejecutar más
+        funciones específicas.</h3>
+      <h3><font color="#cc33cc">Virtualización de los sistemas
+          operativos.-</font> Los sistemas operativos se virtualizan en
+        el kernel, es decir, en sus administradores centrales de tareas.
+        Es una forma útil de ejecutar los entornos de Linux y Windows de
+        manera paralela. Las empresas también pueden insertar sistemas
+        operativos virtuales en las computadoras, lo cual:</h3>
+      <h3><br>
+        Reduce los grandes gastos en sistemas de hardware, ya que las
+        computadoras no requieren funciones tan inmediatas.</h3>
+      <h3>Aumenta la seguridad porque todas las instancias virtuales se
+        pueden supervisar y aislar.</h3>
+      <h3>Limita el tiempo que se destina a los servicios de TI, como
+        las actualizaciones de software.</h3>
+      <h3 align="justify"><font color="#cc33cc">Virtualización de las
+          funciones de red .-</font> La virtualización de las funciones
+        de red (NFV) separa las funciones clave de una red (como los
+        servicios de directorio, el uso compartido de archivos y la
+        configuración de IP) para distribuirlas entre los entornos.
+        Cuando las funciones del software se independizan de las
+        máquinas físicas donde se alojaban, las funciones específicas
+        pueden empaquetarse en una nueva red y asignarse a un entorno.
+        La virtualización de redes, que se utiliza con frecuencia en el
+        sector de las telecomunicaciones, reduce la cantidad de
+        elementos físicos (como conmutadores, enrutadores, servidores,
+        cables y centrales) que se necesitan para crear varias redes
+        independientes.</h3>
+      <br>
+      <br>
+      <p><br>
+        <br>
+      </p>
+      <h3 align="justify"><a moz-do-not-send="true" href="#GNOME_Boxes">GNOME
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          BOX</a></h3>
+      <h3><a moz-do-not-send="true"
+          href="#Virtualizacion_con_Cajas_GNOME">Virtualizacion con
+          Cajas GNOME</a><br>
+      </h3>
+      <h3><a moz-do-not-send="true" href="#Instalacion_en_Gnome_box">Instalacion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          en Gnome box</a></h3>
+      <h3><a moz-do-not-send="true"
+          href="#Ejecucion_de_las_maquinas_virtuales">Ejecucion de las
+          maquinas virtuales</a><br>
+      </h3>
+      <h3><a moz-do-not-send="true" href="#Conclusiones_finales.">Conclusiones
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          finales de las VM</a><br>
+      </h3>
+      <h3><a moz-do-not-send="true" href="#AWS">AWS</a><br>
+      </h3>
+      <h3><a moz-do-not-send="true" href="#Google_Cloud">Google Cloud</a></h3>
+      <p> </p>
+      <h3><a moz-do-not-send="true" href="#GIT">GIT</a></h3>
+      <h3><a moz-do-not-send="true"
+          href="#Configuración_de_Git_por_primera_vez">Configuración de
+          Git por primera vez</a><br>
+      </h3>
+      <h3><a moz-do-not-send="true" href="#Tu_identidad">Tu identidad</a><br>
+      </h3>
+      <h3><a moz-do-not-send="true" href="#Tu_editor">Tu editor</a></h3>
+      <h3> <a moz-do-not-send="true" href="#Obteniendo_ayuda">Obteniendo
+
+
+
+
+
+
+
+
+          ayuda</a></h3>
+      <h3><a moz-do-not-send="true" href="#Conceptos_básicos_de_Git">Conceptos
+
+
+
+
+
+
+
+
+          básicos de Git</a></h3>
+      <h3><a moz-do-not-send="true" href="#El_proceso_de_trabajo_de_GIT">El
+
+
+
+          proceso de trabajo de GIT</a><br>
+      </h3>
+      <h3><a moz-do-not-send="true" href="#Commit">Commit</a></h3>
+      <p> <br>
+      </p>
+      <h3 align="justify"><a name="GNOME_Boxes"></a>GNOME Boxes fue
+        introducida en GNOME 3.4 como una solución de virtualización
+        sencilla y alternativa al áspero virt-manager. Está centrada
+        sobre todo en el escritorio y los usuarios finales que
+        simplemente quieren ejecutar sistemas operativos adicionales de
+        forma fácil y cómoda.</h3>
+      <h3 align="justify">Desde entonces GNOME Boxes, que utiliza QEMU,
+        KVM y libvirt como tecnologías, ha ido mejorando poco a poco, y
+        aunque en un principio cumple su propósito de ofrecer una
+        solución de virtualización sencilla y amigable, quizá se muestra
+        algo limitada frente a competidoras como VirtualBox y VMware
+        Player, en parte porque estas dos últimas permiten establecer
+        fácilmente la red en puente y cambiar la ubicación de las
+        máquinas virtuales (por poner dos ejemplos sencillos). El
+        enfoque amigable de GNOME Boxes tiene un precio, y es que no “no
+        proporciona muchas de las opciones avanzadas para ajustar las
+        máquinas virtuales proporcionadas por virt-manager”, como bien
+        explica en el sitio web de la aplicación.</h3>
+      <h3 align="justify">Debido a las limitaciones que presenta Boxes,
+        las cuales son heredadas en buena medida del concepto que maneja
+        GNOME para el entorno de escritorio y las aplicaciones, las
+        máquinas virtuales se crean dentro de la carpeta del usuario, no
+        pudiéndose modificar esto de forma gráfica. Sin embargo, tomando
+        como pista la documentación oficial, se puede crear un enlace
+        simbólico para “engañar” a GNOME y colocar las máquinas
+        virtuales en otra ubicación, siendo el comando resultante el
+        siguiente:</h3>
+      <h3 align="justify"> lo que ha funcionado mejor es montar el disco
+        duro externo, si es que requieres instalar varios SO de forma
+        virtual, o bien se requiera mucho espacio para probar y ejecutar
+        programas, en los SO virtualizados, para ello es utilizar un
+        cambio del directorio de montaje de /mnt/ (es un directorio
+        donde se "monta" un dispositivo externo como un usb cd/dvd, usb
+        hdd. <br>
+      </h3>
+      <h3>/home/usuario/.local/share/gnome-boxes/images, que es el
+        directorio por default, en el disco local, que podemos cambiar
+        por lo siguiente&nbsp; : </h3>
+      <h3>inicialmente estaba asignado asi:</h3>
+      <h3>/mnt/usb-WDC_WD10_EZEX-08WN4A0_000001D91CC6-0:0-part1</h3>
+      <h3>se ha cambiado a:</h3>
+      <h3><font size="+2">/home/msantos/.local/share/gnome-boxes/images</font></h3>
+      <h3>&nbsp;como se muestra con el comando mount </h3>
+      <font size="+1"> <font size="+2">/dev/sdc1 on
+          /home/msantos/.local/share/gnome-boxes/images type ext4
+          (rw,nosuid,nodev,relatime,seclabel, data=ordered)</font></font><br>
+      <br>
+      <h3 align="justify"> esto se realiza con la utileria llamada
+        discos en el menu Aplicaciones&nbsp;&nbsp;
+        utilidades&nbsp;&nbsp; discos clic en el disco que se desea usar
+        para gnome-box, seleccionar el icono de los engranes (ajustes) Y
+        SELECCIONAR EL MODO DE MONTAJE,&nbsp; ahí activamos el menú y
+        establecemos la ruta para el montaje <br>
+      </h3>
+      <h3 align="justify">esto se usa cuando quiero poner un disco duro
+        externo conectado con una conexión usb, u otro sistema, lo&nbsp;
+        que debemos considerar que ese disco solo es usado apara ese
+        propósito, por el hecho que el directorio <font size="+2">/home/msantos/.local/share/gnome-boxes/images
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          debemos </font><br>
+      </h3>
+      <h3 align="justify">"montar" el disco externo en este directorio
+        para que se pueda usar como si fuera el directorio que se usa
+        como areade creacion de los SO virtualizados, en otras palabras
+        el directorio mencionado es sustituido o montado el disco en ese
+        lugar para ser usado el disco en lugar del directorio. <br>
+      </h3>
+      <p><br>
+        <img moz-do-not-send="true" src="images3/linux_1.png" alt=""
+          width="533" height="676"><br>
+      </p>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_2.png" alt=""
+        width="803" height="753"><br>
+      <br>
+      <h2><a name="Virtualizacion_con_Cajas_GNOME"></a>Virtualización
+        con Cajas GNOME</h2>
+      <h3 align="justify">Boxes (cajas) es una herramienta de
+        virtualización de escritorio gráfica ligera que se utiliza para
+        ver y acceder a máquinas virtuales y sistemas remotos.</h3>
+      <h3 align="justify">GNOME Boxes requiere que la CPU sea compatible
+        con algún tipo de virtualización asistida por hardware (Intel
+        VT-x , por ejemplo); por lo tanto, GNOME Boxes no funcionan con
+        las CPU con procesador Intel Pentium / Celeron ya que carecen de
+        esta característica.</h3>
+      <h3 align="justify">Esta herramienta está dirigida a usuarios
+        recién llegados a Linux, pues Gnome boxes ha logrado eliminar
+        demasiadas configuraciones y cambios de configuración necesarios
+        para conectarse a una máquina remota o virtual.<br>
+        <br>
+        Hay otro cliente de máquina virtual disponible en el universo
+        Linux, pero son complejos y, en ocasiones, están dedicados a
+        usuarios avanzados.<br>
+        <br>
+        GNOME Boxes, la aplicación de código abierto y gratuito, hace
+        que sea muy fácil conectarse a máquinas virtuales remotas
+        simplificando los pasos. Estas son algunas de sus
+        características únicas.</h3>
+      <ol>
+        <li>
+          <h3>Aplicación nativa de GNOME con interfaz de usuario
+            amigable</h3>
+        </li>
+        <li>
+          <h3>Fácil acceso a máquinas virtuales</h3>
+        </li>
+        <li>
+          <h3>Monitor de rendimiento</h3>
+        </li>
+        <li>
+          <h3>Crear VM desde archivos, URL remota</h3>
+        </li>
+        <li>
+          <h3>Fácil acceso</h3>
+        </li>
+      </ol>
+      <p><br>
+      </p>
+      <h3 align="justify">A diferencia de <a moz-do-not-send="true"
+          href="https://virt-manager.org/download/">virt-viewer</a> y <a
+          moz-do-not-send="true"
+href="https://www.remotepc.com/?gclid=EAIaIQobChMIp9ul0e7l-gIVjQatBh35BAPCEAAYAiAAEgIjb_D_BwE">remote-viewer</a>,
+        Boxes permite ver máquinas virtuales invitadas, pero también
+        crearlas y configurar, de forma similar a virt-manager. Sin
+        embargo, en comparación con virt-manager, Boxes ofrece menos
+        opciones y funciones de administración, pero es más fácil de
+        usar.</h3>
+      <h3>Aplicaciones ⇒ Herramientas del sistema.</h3>
+      <img moz-do-not-send="true" src="images3/linux_3.png" alt=""
+        width="519" height="672"><br>
+      <br>
+      <h3 align="justify">La pantalla principal muestra las máquinas
+        virtuales invitadas disponibles. El lado derecho de la pantalla
+        tiene dos botones:</h3>
+      <h3 align="justify">El botón de búsqueda, una lupa.&nbsp;<img
+          moz-do-not-send="true" src="images3/linux_4.png" alt=""
+          width="32" height="33"> - el botón de búsqueda,&nbsp;<img
+          moz-do-not-send="true" src="images3/linux_5.png" alt=""
+          width="31" height="31"> para buscar máquinas virtuales
+        invitadas por nombre, y el botón de selección, un tic. - el
+        botón de selección.</h3>
+      <h3 align="justify">Hacer clic en el botón de selección le permite
+        seleccionar una o más máquinas virtuales invitadas para realizar
+        operaciones individualmente o en grupo. <br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/linux_6.png" alt=""
+        width="1492" height="802"><br>
+      <br>
+      <h3>Cree nuevas máquinas virtuales invitadas con el botón Nuevo en
+        el lado izquierdo de la pantalla principal.</h3>
+      <img moz-do-not-send="true" src="images3/linux_7.png" alt=""
+        width="1506" height="250"><br>
+      <br>
+      <h3> Aquí podemos observar que se han instalados varios sistemas
+        operativos en este equipo.</h3>
+      <h3>Para lograr la instalación de los diversos sistemas operativos
+        necesitamos tener la imagen ISO del sistema a probar/instalar</h3>
+      <h3 align="justify">El término “archivo ISO” o “imagen ISO” se
+        remonta al formato estandarizado ISO 9660 o 13346 para los
+        soportes de CD-ROM y representa la imagen de almacenamiento
+        idéntica de los soportes ópticos. Por tanto, un archivo ISO
+        contiene los mismos datos que transferirías al copiar datos a un
+        CD, DVD o Blu-ray </h3>
+      <h3 align="justify">¿Cuándo se utilizan los ISO?</h3>
+      <h3 align="justify">El uso de un archivo ISO es un reflejo de lo
+        que se hace con los CDs/DVDs/Blu-rays. Los archivos ISO permiten
+        almacenar carpetas de archivos, como archivos de sistema y de
+        instalación de sistemas operativos, programas de software,
+        películas, vídeos o incluso juegos de ordenador.</h3>
+      <h3 align="justify"><br>
+        También son útiles para ejecutar y utilizar varios sistemas
+        operativos invitados a través de monitores de hipervisores o
+        máquinas virtuales. Si no tienes una unidad de CD/DVD, pero
+        quieres utilizar un sistema invitado en tu dispositivo, puedes
+        ejecutarlo igualmente mediante archivos ISO. Todo lo que tienes
+        que hacer es crear un dispositivo de instalación en forma de
+        memoria USB de arranque con un ISO. Asegúrate siempre de que
+        tienes suficiente espacio de almacenamiento en el medio de
+        destino, ya que los archivos ISO requieren más memoria en
+        comparación con una fuente original.</h3>
+      <h3>También pueden elegir un directorio o incluso ingresar una URL
+        para que Gnome Box pueda descargar el archivo ISO.<br>
+        Antes de finalizar el asistente, pueden personalizar la cantidad
+        de memoria RAM y espacio en disco haciendo clic en el botón
+        «Personalizar».</h3>
+      <h3><br>
+        Aquí, pueden moverse alrededor de controles deslizantes para dar
+        o menos de cada uno.</h3>
+      <h3><br>
+        También pueden observar algunas categorías en el lado izquierdo
+        de la ventana. Estos son Inicio de sesión, Sistema y
+        Dispositivos, donde se encuentra actualmente en Sistema.(1)</h3>
+      <h3>En la imagen inferior tenemos una "imagen" ISO de ubuntu 22,
+        que previamente se dercarga del la pagina de este. Y lo movimos
+        a este directorio llamado ISO /home/msantos/Descargas/ISO<br>
+      </h3>
+      <p><br>
+      </p>
+      <img moz-do-not-send="true" src="images3/linux_8.png" alt=""
+        width="1503" height="845"> <br>
+      <br>
+      <h3><a name="Instalacion_en_Gnome_box"></a>Lo instalaremos en
+        Gnome Boxes (cajas), Iniciamos en Aplicaciones -&gt;
+        Herramientas del Sistema -&gt; Cajas</h3>
+      <img moz-do-not-send="true" src="images3/linux_9.png" alt=""
+        width="642" height="618"><br>
+      <h3>Iniciamos con la aplicación y seleccionamos el botón Nueva
+        (Nueva maquina virtual):</h3>
+      <img moz-do-not-send="true" src="images3/linux_10.png" alt=""
+        width="1598" height="285"><br>
+      <br>
+      <h3>Seleccionamos la imagen ISO del sistema a instalar, en este
+        caso como se comento es ubuntu ...<br>
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_11.png" alt=""
+        width="974" height="484"><br>
+      <br>
+      <h3>Seleccionamos el directorio donde se encuentra la imagen ISO,
+        y clic en el botón Abrir<br>
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_12.png" alt=""
+        width="999" height="475"><br>
+      <br>
+      <h3>Se establecen los parámetros para la creación de la
+        virtualizacion, de forma automática pero podemos asignar mas
+        recursos a este sistema, usando el botón Personalizar ....</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_13.png" alt=""
+        width="970" height="532"><br>
+      <br>
+      <h3>Establecemos otros valores para la ejecución del sistema,
+        cuando sea necesario, al terminar esta parte clic sobre el botón
+        &lt; regresando a la pantalla de parámetros de la instalación.<br>
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_14.png" alt=""
+        width="964" height="354"><br>
+      <br>
+      <h3>Si es lo que nos interesa podemos continuar con el botón Crear
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_15.png" alt=""
+        width="974" height="508"><br>
+      <br>
+      <h3>y comienza la instalación de Ubuntu en el GNOME BOXES de
+        CentOS, omito el proceso de instalación, ya que es algo
+        larga,&nbsp; pero no es difícil es muy parecida a CentOS.<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/linux_16.png" alt=""
+        width="1251" height="982"><br>
+      <h3>finalizando la instalación tenemos Ubuntu EJECUTANDOSE en
+        GNOME BOXES:<br>
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_17.png" alt=""
+        width="1252" height="613"><br>
+      <br>
+      <h3>&nbsp;y aquí la vista de los diferentes SO en GNOME BOXES
+        instalados, puede haber mas, todo depende de el espacio
+        disponible en el sistema.</h3>
+      <img moz-do-not-send="true" src="images3/linux_18.png" alt=""
+        width="1294" height="728"><br>
+      <br>
+      <h2><a name="Ejecucion_de_las_maquinas_virtuales"></a><font
+          color="#cc33cc">Ejecucion de las maquinas virtuales</font></h2>
+      <h3>Para ejecutar los SO virtualizados solo hacemos clic sobre el
+        espacio que corresponde al SO, por ejemplo un Windows 10:</h3>
+      <h3><a moz-do-not-send="true" href="videos/gnome_win10.mp4">GNOME
+          BOX Windows 10</a></h3>
+      <h3>podemos agregar programas en esta maquina virtual, usando un
+        HDD externo como ejemplo, también podemos usar un DVD, para este
+        ejemplo pasaremos un ISO de un software, después lo descomprimo,
+        para instalar el software, primero ingresamos el HDD externo USB
+        en el sistema de LINUX.</h3>
+      <h3>este es la imagen ISO, del programa a instalar.</h3>
+      <p><br>
+      </p>
+      <img moz-do-not-send="true" src="images3/linux_22.png" alt=""
+        width="1416" height="796"><br>
+      <br>
+      <h3>pasamos a la maquina virtual, y permitimos el paso desde
+        GNU/LINUX del dispositivo en este caso un HDD 1.5 Gb, ingresando
+        a la maquina virtual por medio de un menú de propiedades y
+        "montar" el HDD&nbsp; a Windows 10 virtualizado, observe el
+        siguiente video.<br>
+      </h3>
+      <h3><a moz-do-not-send="true" href="videos/gnome_win10_b.mp4">lectura
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          de un hdd externo en maquina virtual</a><br>
+      </h3>
+      <h3 align="justify"> en algunas ocasiones (son poco frecuentes)
+        que no es reconocido el SO a virtualizar podemos en ese caso
+        seleccionar SO desconocido, en una lista o mensaje que nos
+        mostrara.</h3>
+      <h3>en cada So virtualizado existe una opción, llamada instantánea
+        que podemos ver aquí, se puede mostrar con el botón del lado
+        derecho del ratón, accedes por Propiedades:<br>
+      </h3>
+      <h3><img moz-do-not-send="true" src="images3/linux_23.png" alt=""
+          width="1146" height="647">&nbsp;<br>
+      </h3>
+      <h3>se encuentran varias pestañas en la parte superior, selecciona
+        Instantáneas:</h3>
+      <img moz-do-not-send="true" src="images3/linux_24.png" alt=""
+        width="1149" height="266"><br>
+      <br>
+      <h3>puedes crear una instantánea, y sirve si por alguna razón
+        tienes problemas con el SO virtualizado lo recuperas de esta
+        instantánea y así el SO.<br>
+      </h3>
+      <h3 align="justify"> Para realizar este proceso vamos al menú que
+        se mostró anteriormente y en la parte inferior izquierda hay un
+        boton con el signo +, hacemos un clic ahí y después de unos
+        instantes se ha creado la instantánea del este SO.</h3>
+      <img moz-do-not-send="true" src="images3/linux_25.png" alt=""
+        width="1187" height="670"><br>
+      <h2> <font color="#cc33cc"><a name="Conclusiones_finales."></a>Conclusiones
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          finales.</font></h2>
+      <h3 align="justify">Gnome Boxes es una gran aplicación de gestión
+        y manejo de máquinas virtuales, no es tan completa como podría
+        ser en VirtualBox, pero, por otro lado, nos ofrece una serie de
+        ventajas:</h3>
+      <h3 align="justify">Una de las más destacadas es su simplicidad a
+        la hora de crear máquinas virtuales, ya cuenta con diferentes
+        perfiles. Incluso se puede descargar e instalar una imagen ISO
+        de un modo casi automático. Confirmando que en el tema referente
+        a la configuración apenas necesita intervención del usuario.</h3>
+      <h3 align="justify">He apreciado un increíble descenso del uso de
+        recursos del sistema y fluidez general del PC, mientras está
+        instalando o funcionado el sistema huésped. Nuestro ordenador
+        funciona muy fluido al igual que el sistema visualizado,
+        notándose especialmente en la desenvoltura de la CPU, RAM y un
+        menor incremento de la temperatura, lo cual es de agradecer.</h3>
+      <h3 align="justify">El empleo de Qemu, KVM, y libvirt. Trasfieren
+        un comportamiento muy bueno en la máquina virtual, la cual
+        actual al margen del Kernel utilizado en nuestro PC.
+        Olvidándonos de los problemas originados por usar el más
+        actualizado y la contrariedad con el módulo DKMS que se origina
+        a menudo en <a moz-do-not-send="true"
+          href="https://www.virtualbox.org/">VirtualBox</a>.</h3>
+      <h3 align="justify">Porque usar las VM ?<br>
+      </h3>
+      <h3 align="justify"><font color="#3366ff">Probar fácilmente nuevos
+          sistemas operativos</font></h3>
+      <h3 align="justify">Probar sistemas operativos es la razón más
+        socorrida para usar máquinas virtuales. Como ya hemos contado,
+        hay soluciones que lo ponen muy fácil para ponerlas en
+        funcionamiento y así explorar lo que hay más allá de lo
+        instalado en la máquina anfitriona, que por lo general suele ser
+        Windows.<br>
+        <br>
+        Lo de probar sistemas operativos puede motivarse en la mera
+        curiosidad, las ganas de conocer las características o las
+        novedades de cada nuevo lanzamiento sin poner en riesgo la
+        máquina real o las intenciones de llevar a cabo una posible
+        migración debido a que el ordenador utilizado no cumple con los
+        exigentes requisitos de Windows 11 por ejemplo.</h3>
+      <h3 align="justify"><font color="#3366ff">Realizar pruebas sin
+          dañar el sistema anfitrión</font><br>
+      </h3>
+      <h3 align="justify">Otra razón para usar máquinas virtuales es la
+        realización de pruebas sin dañar el sistemas anfitrión. Dicho
+        con otras palabras, en lugar de ejecutar un sistema operativo
+        distinto, se emplearía el mismo que el de la máquina real para
+        así llevar a cabo pruebas que, en caso de salir bien, podrían
+        trasladarse al sistema anfitrión.<br>
+      </h3>
+      <h3><font color="#3366ff">Mantener vivos sistemas operativos
+          obsoletos</font><br>
+      </h3>
+      <h3 align="justify">¿Tienes alguna aplicación fundamental para ti
+        pero que solo funciona en un sistema operativo que se ha quedado
+        sin soporte? Aquí las máquinas virtuales son una muy buena
+        solución porque no solo permiten mantener dicha aplicación en
+        funcionamiento, sino que además proporcionan aislamiento para
+        evitar catástrofes a nivel de seguridad (aunque esto depende de
+        una correcta configuración de la propia máquina virtual). En
+        caso de depender de una aplicación que solo funciona sobre
+        Windows XP, sería muy recomendable trasladar la producción a una
+        máquina virtual. <br>
+      </h3>
+      <h3>Cloud es una forma de tener servidores en internet sin tener
+        grandes gastos, pero dependera de la cantidad de solicitudes y/o
+        uso del servidor en el cloud ya sea en aws o google cloud, y eso
+        dependera de los costos asociados a esto. Para comprender esto
+        mejor te sugiero ver <a moz-do-not-send="true"
+          href="https://www.youtube.com/watch?v=Lju2-YcsdO0">esto.</a><br>
+      </h3>
+      <p> <br>
+      </p>
+      <h2> <font color="#cc33cc"><a name="AWS"></a>AWS</font></h2>
+      <h3><a moz-do-not-send="true"
+href="https://aws.amazon.com/es/free/?trk=eb709b95-5dcd-4cf8-8929-6f13b8f2781f&amp;sc_channel=ps&amp;s_kwcid=AL!4422!3!618383200231!e!!g!!aws&amp;ef_id=EAIaIQobChMIx7_m1OzJ-gIVPRitBh1QwQovEAAYASAAEgLQF_D_BwE:G:s&amp;s_kwcid=AL!4422!3!618383200231!e!!g!!aws&amp;all-free-tier.sort-by=item.additionalFields.SortRank&amp;all-free-tier.sort-order=asc&amp;awsf.Free%20Tier%20Types=*all&amp;awsf.Free%20Tier%20Categories=*all">AWS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </a>de Amazon </h3>
+      <h3 align="justify"> Amazon Web Services (AWS) es la plataforma en
+        la nube más adoptada y completa en el mundo, que ofrece más de
+        200 servicios integrales de centros de datos a nivel global.
+        Millones de clientes, incluso las empresas emergentes que crecen
+        más rápido, las compañías más grandes y los organismos
+        gubernamentales líderes, están usando AWS para reducir los
+        costos, aumentar su agilidad e innovar de forma más rápida.</h3>
+      <h3 align="justify">Mayor funcionalidad</h3>
+      <h3 align="justify">AWS cuenta con una cantidad de servicios y de
+        características incluidas en ellos que supera la de cualquier
+        otro proveedor de la nube, ofreciendo desde tecnologías de
+        infraestructura como cómputo, almacenamiento y bases de datos
+        hasta tecnologías emergentes como aprendizaje automático e
+        inteligencia artificial, lagos de datos y análisis e <a
+          moz-do-not-send="true" href="#IoT">internet de las cosas</a>.
+        Esto hace que llevar las aplicaciones existentes a la nube sea
+        más rápido, fácil y rentable y permite crear casi cualquier cosa
+        que se pueda imaginar.<br>
+        <br>
+        AWS también tiene la funcionalidad más completa dentro de esos
+        servicios. Por ejemplo, AWS ofrece la más amplia variedad de
+        bases de datos que están diseñadas especialmente para diferentes
+        tipos de aplicaciones, de modo que usted puede elegir la
+        herramienta adecuada para el trabajo a fin de obtener el mejor
+        costo y rendimiento.<br>
+      </h3>
+      <h3> Aqui la forma de registrarse una cuenta en AWS de forma
+        gratuita</h3>
+      <h3> ingresamos por google y buscamos aws, y accedemos al link
+        mostrado Amazon Web Services:</h3>
+      <img moz-do-not-send="true" src="images3/linux_26.png" alt=""
+        width="1240" height="699"><br>
+      <h3> Seleccionamos la oferta que nos ayude a usar AWS, yo he
+        seleccionado Gratis para Siempre</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_27.png" alt=""
+        width="1238" height="699"><br>
+      <br>
+      <h3> Hay varias categorías yo seleccione AWS Lambda para 1 millón
+        de solicitudes diarias (Gratuito para siempre)<br>
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_28.png" alt=""
+        width="1227" height="692"><br>
+      <br>
+      <h3>En esta oferta esta lo siguiente, seleccione Crear una cuenta
+        de AWS<br>
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_29.png" alt=""
+        width="1221" height="689"><br>
+      <br>
+      <h3>a continuación solicita un correo electrónico, y un nombre de
+        cuenta, y realiza una verificación que esto no sea fraudulento:
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_30.png" alt=""
+        width="1237" height="698"><br>
+      <br>
+      <h3>se procede con la verificación del correo:</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_31.png" alt=""
+        width="1235" height="697"><br>
+      <br>
+      <h3>Al correo asignado se enviá un código que se escribe en un
+        campo del formulario, y este es autentificado, donde si es
+        correcto todo pasa a esta pantalla que se muestra, y ahora
+        debemos de establecer una contraseña para acceso al servicio de
+        AWS. Continuamos al siguiente paso en el botón color naranja.<br>
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_32.png" alt=""
+        width="1205" height="680"><br>
+      <h3>selección de : Personal: para sus propios proyectos</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_33.png" alt=""
+        width="1198" height="676"><br>
+      <h3>mas datos</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_34.png" alt=""
+        width="1201" height="678"><br>
+      <br>
+      <h3>solicita tarjeta de crédito o débito para confirmar que es una
+        persona mayor de 18 para su confirmación no hay cargo</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_35.png" alt=""
+        width="1216" height="686"><br>
+      <br>
+      <h3>verifica datos de tarjeta (no hay cargos)</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_36.png" alt=""
+        width="1216" height="686"><br>
+      <br>
+      <h3>confirmación del teléfono y clave ce comprobación de seguridad</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_37.png" alt=""
+        width="1223" height="691"><br>
+      <h3>seleccionamos el plan de soporte: Basic: gratis<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/linux_38.png" alt=""
+        width="1175" height="663"><br>
+      <h3>finalizando </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_39.png" alt=""
+        width="1175" height="663"><br>
+      <h3>al correo registrado llega esto, son tutoriales para
+        familiarizarse en los servicios:</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_40.png" alt=""
+        width="1178" height="665"><br>
+      <br>
+      <h3>para iniciar sesión</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_41.png" alt=""
+        width="1176" height="665"><br>
+      &nbsp;<br>
+      <h3>promocionamos el correo con que nos registramos:</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_42.png" alt=""
+        width="1181" height="666"><br>
+      <br>
+      <h3>contraseña</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_43.png" alt=""
+        width="1158" height="653"><br>
+      <br>
+      <h3>ya estamos listos para comenzar</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_44.png" alt=""
+        width="1148" height="648"><br>
+      <br>
+      <h3>en la parte inferior de la pagina:</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_45.png" alt=""
+        width="1150" height="649"><br>
+      <br>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_46.png" alt=""
+        width="1151" height="651"><br>
+      <br>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_47.png" alt=""
+        width="1157" height="653"><br>
+      <br>
+      <h3> para iniciar una maquina virtual tenemos, iniciando en la
+        consola de aws (<font color="#ff0000">Your AWS Console</font>):<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/linux_48.png" alt=""
+        width="1235" height="694"><br>
+      <br>
+      <h3> desplazando hacia abajo encontramos (Crear una solución) con
+        los tiempos aproximados de realización, tomamos : <font
+          color="#3366ff">Lance una maquina virtual</font><br>
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_49.png" alt=""
+        width="1288" height="724"><br>
+      <br>
+      <h3>Lanzar una instancia, asignamos un nombre al servidor que
+        queremos usar</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_50.png" alt=""
+        width="1297" height="729"><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_51.png" alt=""
+        width="1303" height="732"><br>
+      <br>
+      <h3>seleccionamos un SO para ser virtualizado</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_52.png" alt=""
+        width="1321" height="743"><br>
+      <br>
+      <h3> Selecciono en este caso RED-HAT</h3>
+      <img moz-do-not-send="true" src="images3/linux_53.png" alt=""
+        width="1327" height="746"><br>
+      <br>
+      <h3>Ahora seleccionamos el tipo de Instancia (cantidad de
+        procesadores y memoria) y las claves para inicio de sesión.<font
+          color="#3366ff"> Crear un nuevo par de claves <font
+            color="#000000">se genera un archivo del tipo .pem y se debe
+            de almacenar en el disco de tu computadora en un directorio
+            especifico, que no lo olvides.</font> </font><br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/linux_54.png" alt=""
+        width="1336" height="752"><br>
+      <br>
+      <h3>se genera la clave .pem (para ser usado con ssh este lo
+        revisamos en la unidad anterior)<br>
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_55.png" alt=""
+        width="1338" height="752"><br>
+      <br>
+      <h3> Configuación de red</h3>
+      <img moz-do-not-send="true" src="images3/linux_56.png" alt=""
+        width="1334" height="750"><br>
+      <br>
+      <h3>almacenamiento (podemos dejarlo de esa manera)<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/linux_57.png" alt=""
+        width="1346" height="757"><br>
+      <h3>y detalles avanzados</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_58.png" alt=""
+        width="1363" height="766"><br>
+      <br>
+      <h3>Resumen (al lado derecho de la pagina)<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/linux_59.png" alt=""
+        width="431" height="583"><br>
+      <br>
+      <h3>&nbsp;Lanzar instancia</h3>
+      <img moz-do-not-send="true" src="images3/linux_60.png" alt=""
+        width="1384" height="778"><br>
+      <br>
+      <h3>Instancia terminada</h3>
+      <img moz-do-not-send="true" src="images3/linux_61.png" alt=""
+        width="1383" height="790"><br>
+      <img moz-do-not-send="true" src="images3/linux_62.png" alt=""
+        width="1381" height="777"><br>
+      <br>
+      <h3>Conectarse a la instancia</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_63.png" alt=""
+        width="1383" height="777"><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_64.png" alt=""
+        width="1384" height="778"><br>
+      <br>
+      <h3>cliente ssh</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_65.png" alt=""
+        width="1381" height="777"><br>
+      <br>
+      <br>
+      <img moz-do-not-send="true" src="images3/linux_66.png" alt=""
+        width="931" height="333"><br>
+      <br>
+      <h3> Se puede apreciar que para tengamos algo moderadamente bien
+        hay que contratar un servicio con un costo arriba de los 80 US.</h3>
+      <h2><font color="#cc33cc"><a name="Google_Cloud"></a>Google Cloud</font></h2>
+      <h3>Descripción general de Google Cloud</h3>
+      <h3>Google Cloud consiste en un conjunto de recursos físicos, como
+        computadoras y unidades de disco duro, y recursos virtuales,
+        como máquinas virtuales (VM), que se encuentran en los centros
+        de datos de Google en todo el mundo.</h3>
+      <h3>Recursos de Google Cloud</h3>
+      <h3 align="justify">Google Cloud consiste en un conjunto de
+        recursos físicos, como computadoras y unidades de disco duro, y
+        recursos virtuales, como máquinas virtuales (VM), que se
+        encuentran en los centros de datos de Google en todo el mundo.
+        Cada centro de datos está ubicado en una región, específicamente
+        en Asia, Australia, Europa, América del Norte y América del Sur.
+        Cada región es una colección de zonas aisladas entre sí dentro
+        de cada región. Estas zonas se identifican mediante nombres que
+        combinan una letra identificadora con el nombre de la región.
+        Por ejemplo, la zona a en la región de Asia Oriental se llama
+        asia-east1-a.</h3>
+      <h3>Esta distribución de los recursos brinda varios beneficios,
+        que incluyen redundancia en caso de fallas y menor latencia, ya
+        que los recursos se encuentran más cerca de los clientes. La
+        distribución también presenta algunas reglas sobre cómo se
+        pueden usar los recursos en conjunto.</h3>
+      <h3>Acceder a los recursos a través de los servicios</h3>
+      <h3>En la computación en la nube, lo que conocías como productos
+        de software y hardware pasan a ser servicios. Con ellos puedes
+        acceder a los recursos subyacentes. La lista de servicios de
+        Google Cloud disponibles es larga y está en constante
+        crecimiento. Cuando desarrollas tu sitio web o aplicación en
+        Google Cloud, combinas y mezclas estos servicios para
+        proporcionar la infraestructura que necesitas y, luego, agregas
+        tu código para crear lo que deseas.</h3>
+      <p></p>
+      <h2>Iniciamos con el acceso:</h2>
+      <img moz-do-not-send="true" src="images3/goggle_c1.png" alt=""
+        width="1442" height="811"><br>
+      <h3>clic sobre google cloud</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/goggle_c2.png" alt=""
+        width="1435" height="806">
+      <h3>botón Comenzar sin costo <br>
+      </h3>
+      <h3>solicita una cuenta de gmail:</h3>
+      <img moz-do-not-send="true" src="images3/google_3.png" alt=""
+        width="1350" height="759">
+      <h3>ingresando el correo nos presenta la siguiente información:<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/google_4.png" alt=""
+        width="1315" height="739">
+      <h3>completamos lo que nos solicita<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/google_c5.png" alt=""
+        width="1329" height="747"><br>
+      <br>
+      <h3>terminamos con continuar</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/google_c6.png" alt=""
+        width="1337" height="752">
+      <h3>Llenamos los datos que nos solicitan para confirmación (paso
+        2) prueba gratuita<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/google_c7.png" alt=""
+        width="1323" height="744">
+      <h3>nos solicitan un numero de tarjeta de crédito (valida)</h3>
+      <img moz-do-not-send="true" src="images3/google_c8.png" alt=""
+        width="1341" height="755">
+      <h3>y clic en el botón INICIAR PRUEBA GRATUITA, y configuramos el
+        restao de las opciones.<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/google_c9.png" alt=""
+        width="1358" height="763"><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/google_c10.png" alt=""
+        width="1333" height="749"><br>
+      <h3>botón SIGUIENTE <br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/google_c11.png" alt=""
+        width="1321" height="742"><br>
+      <h3>seleccionamos el uso principal del cloud de google</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/google_c12.png" alt=""
+        width="1324" height="743"><br>
+      <br>
+      <h3>Botón SIGUIENTE</h3>
+      <img moz-do-not-send="true" src="images3/google_c13.png" alt=""
+        width="1336" height="751"><br>
+      <h3>terminamos con LISTO</h3>
+      <img moz-do-not-send="true" src="images3/google_c14.png" alt=""
+        width="1347" height="757"><br>
+      <br>
+      <br>
+      <h3>Usamos CloudShell&nbsp; <br>
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/google_c15.png" alt=""
+        width="1340" height="753"><br>
+      <br>
+      <h3>y aquí el shell:</h3>
+      <img moz-do-not-send="true" src="images3/google_c16.png" alt=""
+        width="1350" height="759"><br>
+      <br>
+      <h3>de aquí dependerá de que servicios deseamos usar (187
+        actualmente)</h3>
+      <img moz-do-not-send="true" src="images3/google_c17.png" alt=""
+        width="1323" height="744"><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/google_c18.png" alt=""
+        width="1314" height="739"><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/google_c18.png" alt=""
+        width="1308" height="735"><br>
+      <br>
+      <h3>se deberá de revisar que servicios de api a usar.</h3>
+      <h2><font color="#cc33cc"><a name="GIT"></a>GIT&nbsp;&nbsp;&nbsp;</font>
+        <br>
+      </h2>
+      <h3 align="justify">Git es un sistema de control de versiones
+        distribuido, diseñado por Linus Torvalds. Está pensando en la
+        eficiencia y la confiabilidad del mantenimiento de versiones de
+        aplicaciones cuando estas tienen un gran número de archivos de
+        código fuente.<br>
+      </h3>
+      <h3 align="justify">Git fue creado pensando en la eficiencia y la
+        confiabilidad del mantenimiento de versiones de aplicaciones
+        cuando éstas tienen un gran número de archivos de código fuente,
+        es decir Git nos proporciona las herramientas para desarrollar
+        un trabajo en equipo de manera inteligente y rápida y por
+        trabajo nos referimos a algún software o página que implique
+        código el cual necesitemos hacerlo con un grupo de personas.</h3>
+      <h3><font color="#cc33cc">Qué es un sistema de control de
+          versiones?</font></h3>
+      <h3 align="justify">El SCV o VCS (por sus siglas en inglés) es un
+        sistema que registra los cambios realizados sobre un archivo o
+        conjunto de archivos a lo largo del tiempo, de modo que puedas
+        llevar el historial del ciclo de vida de un proyecto, comparar
+        cambios a lo largo del tiempo, ver quién los realizó o revertir
+        el proyecto entero a un estado anterior.</h3>
+      <p><br>
+      </p>
+      <h3><font color="#cc33cc">Por qué usar Git</font></h3>
+      <h3 align="justify">Git es la primera pieza de cualquier set de
+        herramientas para el desarrollo moderno. Forma parte del día a
+        día de los desarrolladores profesionales, de los equipos de
+        desarrollo y de los profesionales devOps.(conjunto de los
+        equipos de desarrollo y operaciones)</h3>
+      <h3><font color="#cc33cc">Controlar las versiones del código</font></h3>
+      <h3 align="justify">Sirve para el control de versiones de los
+        proyectos y por ello permite saber todos los estados por los que
+        han pasado cada uno de los archivos de código de un proyecto.
+        Permite saber cuándo se modificó un archivo y qué cambios se
+        realizaron, a lo largo de toda la existencia de ese archivo.</h3>
+      <h3><font color="#cc33cc">Trabajo en equipo</font></h3>
+      <div align="justify">
+        <h3>Git es la herramienta fundamental para trabajo en equipo, ya
+          que permite que cada desarrollador trabaje con su propia copia
+          local del proyecto y, cuando envíe cambios al repositorio
+          global, se asegure que su código no machaca modificaciones
+          introducidas por otros desarrolladores.</h3>
+        <h3>Ademas gracias a Git cualquier desarrollador puede
+          sincronizar el código del proyecto local con los cambios
+          introducidos por otros desarrolladores, lo que facilita mucho
+          el día a día del trabajo de todos los desarrolladores y la
+          gestión de proyectos.</h3>
+        <h3>Revisar el código del proyecto en equipo<br>
+          Otra de las ventajas de Git para equipos de trabajo es que
+          podemos revisar cualquier actualización del código del
+          proyecto entre varias personas. Un desarrollador envía un pull
+          request y otro u otros desarrolladores pueden verificar que
+          los cambios tienen buena pinta, antes de incorporarlos al
+          proyecto.<br>
+          <br>
+          <font color="#cc33cc">Revisar la calidad del código y pasar
+            las pruebas</font></h3>
+        <h3>Con Git podemos automatizar diversos procesos de
+          comprobación de la calidad del código, como los que nos
+          permiten los linters o las pruebas. Estas comprobaciones se
+          pueden realizar con cualquier intento de enviar código al
+          repositorio. Si no pasa la revisión del Linter o las pruebas,
+          simplemente no se permitirá actualizar el código del proyecto.<br>
+          <br>
+          Estos sistemas facilitan aportar un estándar de codificación
+          que tendrán que seguir todos los profesionales del proyecto.
+          Si se intenta enviar cambios al proyecto y el formato o las
+          buenas prácticas no se están siguiendo correctamente, Git no
+          permitirá la actualización del código. Por supuesto, si todas
+          las pruebas unitarias no pasan correctamente, tampoco se podrá
+          actualizar el proyecto.<br>
+          <font color="#cc33cc"><br>
+            Despliegue de aplicaciones web</font></h3>
+        <h3>Con Git puedes subir un sitio web al servidor en cuestión de
+          instantes, sin usar FTP. Además, cuando se actualiza el código
+          del proyecto puedes usar Git para subir únicamente aquellos
+          archivos que se han modificado, con un sencillo comando de
+          consola.<br>
+          <br>
+          Aunque no usemos todo el potencial de las operaciones con Git,
+          solo si conseguimos sustituir FTP, estaremos ganando mucha
+          facilidad de organización de proyectos medianos y grandes.</h3>
+        <h3>instalamos GIT, <br>
+        </h3>
+        <p><font size="+1">yum install git-all -y</font><br>
+          <br>
+        </p>
+      </div>
+      <img moz-do-not-send="true" src="images3/git_1.png" alt=""
+        width="891" height="491"><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_2.png" alt=""
+        width="895" height="491"><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_3.png" alt=""
+        width="903" height="491"><br>
+      <h3>requerimos añadir y habilitar documentación en varios formatos
+        (doc, html, info) son necesarias estas dependencias.</h3>
+      <font size="+2"><font size="+1">yum install asciidoc xmlto
+          docbook2X -y</font><br>
+        <br>
+      </font> <img moz-do-not-send="true" src="images3/git_4.png"
+        alt="" width="898" height="258"><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_5.png" alt=""
+        width="897" height="491"><br>
+      <br>
+      <h3>instalamos gnu-getopt este no esta en el repositorio de CentOS
+        hay que descargarlo, desde la pagina RPMfind<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/git_11.png" alt=""
+        width="1235" height="695"><br>
+      <img moz-do-not-send="true" src="images3/git_12.png" alt=""
+        width="1232" height="692"><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_13.png" alt=""
+        width="1238" height="696"><br>
+      <h3>lo descargamos desde la pagina e instalamos</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_14.png" alt=""
+        width="890" height="132"><br>
+      <img moz-do-not-send="true" src="images3/git_15.png" alt=""
+        width="901" height="610"><br>
+      <br>
+      <h3 style="text-align: justify;"> Descargue el archivo en rpm <a
+          href="gnu-getopt-1.0.14-5.el7.noarch.rpm" download="" "=""
+          moz-do-not-send="true">gnu-getopt-1.0.14-5.el7.noarch.rpm</a>,
+        que se encuentra en el servidor.</h3>
+      <h3>Además, si está utilizando derivados de Fedora/RHEL/RHEL, debe
+        hacer esto: </h3>
+      <img moz-do-not-send="true" src="images3/git_6.png" alt=""
+        width="891" height="188"><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_7.png" alt=""
+        width="895" height="331"><br>
+      <br>
+      <h2 align="justify"> <font color="#cc33cc"><a
+            name="Configuración_de_Git_por_primera_vez"></a>Configuración
+
+
+
+
+
+
+
+
+
+          de Git por primera vez</font></h2>
+      <h3 align="justify">Ahora que tiene Git en su sistema, querrá
+        hacer algunas cosas para personalizar su ambiente GIT. Debería
+        tener que hacer estas cosas solo una vez en cualquier
+        computadora; se unirán a las actualizaciones. También puede
+        cambiarlos en cualquier momento ejecutando a través de los
+        comandos de nuevo.</h3>
+      <h3 align="justify">Git viene con una herramienta llamada git
+        config que le permite obtener y establecer variables de
+        configuración que controlan todos los aspectos de cómo se ve y
+        opera Git. Estas variables se pueden almacenar en tres lugares
+        diferentes:</h3>
+      <h3 align="justify">1. Archivo [ruta]/etc/gitconfig: Contiene
+        valores aplicados a cada usuario en el sistema y todos sus
+        repositorios Si pasa la opción --system a git config, lee y
+        escribe desde este archivo específicamente. Debido a que se
+        trata de un archivo de configuración del sistema, necesitaría
+        información administrativa o privilegio de superusuario para
+        realizar cambios en él.</h3>
+      <h3 align="justify">2. Archivo ~/.gitconfig o
+        ~/.config/git/config: valores específicos personalmente para
+        usted, el usuario. Puedes hacer que Git lea y escriba en este
+        archivo específicamente al pasar la opción --global, y esto
+        afecta todos los repositorios con los que trabaja en su sistema.</h3>
+      <h3>3. archivo de configuración en el directorio Git (es decir,
+        .git/config) de cualquier repositorio que esté actualmente
+        usando: Específico para ese único repositorio. Puede obligar a
+        Git a leer y escribir en este archivo con la opción --local,
+        pero de hecho es la predeterminada. Como era de esperar,
+        necesita estar ubicado en algún lugar de un repositorio de Git
+        para que esta opción funcione correctamente.</h3>
+      <h3>Cada nivel anula los valores del nivel anterior, por lo que
+        los valores en .git/config superan a los de
+        [ruta]/etc/gitconfig.</h3>
+      <h2><a name="Tu_identidad"></a><font color="#cc33cc">Tu identidad</font></h2>
+      <h3>Lo primero que debe hacer cuando instala Git es configurar su
+        nombre de usuario y dirección de correo electrónico. Este es
+        importante porque cada confirmación de Git usa esta información,
+        y está integrada inmutablemente en el se compromete a empezar a
+        crear:</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_8.png" alt=""
+        width="796" height="181"><br>
+      <br>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_9.png" alt=""
+        width="792" height="213"><br>
+      <h3 align="justify">Nuevamente, debe hacer esto solo una vez si
+        pasa la opción --global, porque entonces Git siempre use esa
+        información para cualquier cosa que haga en ese sistema. Si
+        desea anular esto con un nombre o dirección de correo
+        electrónico diferente para proyectos específicos, puede ejecutar
+        el comando sin el --opción global cuando estás en ese proyecto.</h3>
+      <h3 align="justify">Muchas de las herramientas GUI le ayudarán a
+        hacer esto cuando las ejecute por primera vez.</h3>
+      <h2><font color="#cc33cc"><a name="Tu_editor"></a>Tu editor</font></h2>
+      <h3 align="justify">Ahora que su identidad está configurada, puede
+        configurar el editor de texto predeterminado que se usará cuando
+        Git necesita que escribas un mensaje. Si no está configurado,
+        Git usa el editor predeterminado de su sistema. Pudeses usar
+        cualquier editor vi, nano, etc.<br>
+      </h3>
+      <h3>git config --global core.editor vi<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/git_10.png" alt=""
+        width="801" height="223"><br>
+      <br>
+      <h3>Su nombre de sucursal predeterminado</h3>
+      <h3 align="justify">Por defecto, Git creará una rama llamada
+        master cuando crees un nuevo repositorio con git init. Desde la
+        versión 2.28 de Git en adelante, puede establecer un nombre
+        diferente para la rama inicial. Para configurar main como el
+        nombre de rama predeterminado, haz lo siguiente:</h3>
+      <font size="+2">git config --global init.defaultBranch principal<br>
+        <br>
+        <img moz-do-not-send="true" src="images3/git_16.png" alt=""
+          width="898" height="156"><br>
+      </font>
+      <h3><font size="+2">Comprobación de su configuración</font></h3>
+      <h3><font size="+2">Si desea verificar sus ajustes de
+          configuración, puede usar el comando git config --list para
+          enumerar</font><font size="+2"> todas las configuraciones que
+          Git puede encontrar en ese punto:</font><br>
+      </h3>
+      <font size="+2">git config --list</font><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_17.png" alt=""
+        width="894" height="276"><br>
+      <br>
+      <h3>para verificar la configuracion de git con el editor
+        seleccionado :</h3>
+      <font size="+2">git config --global -e<br>
+        <br>
+        <img moz-do-not-send="true" src="images3/git_27.png" alt=""
+          width="898" height="149"><br>
+      </font><img moz-do-not-send="true" src="images3/git_28.png" alt=""
+        width="897" height="429"><br>
+      <br>
+      <h3> Salimos del editor con Esc:q</h3>
+      <h2>Usaremos core.autocrlf</h2>
+      <h3>para que sirve ?</h3>
+      <h3 align="justify">Git se puede usar en LINUX, MacOS, y
+        windows,&nbsp; y se puede intercambiar entre ellos, pero existe
+        un problema en Windows y los repositorios, Windows agregara 2
+        caracteres especiales al final de cada linea, CR y LF (CR -
+        Carriage Return , retorno de carro, o el ENTER, y LF Line Feed
+        avance de linea), en el caso de LINUX o MacOS, en cada linea se
+        termina con un LF, el que desarrolla en windows deberá eliminar
+        el CR cuando sube al repositorio, pero si desea descargar del
+        repositorio deberá agregarlo cuando pase del repositorio a
+        Windows, para esto el valor de configuración deberá ser "true",
+        en el caso de LINUX o MacOS, GIT no deberá hacer alguna acción,
+        pero puede ser que alguien ya sea el usuario agregue CR, o el
+        editor lo haga, deberemos de asegurar que no pase CR al
+        repositorio así que debemos establecer "input" en nuestro caso
+        en LINUX ES INPUT:<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/git_30.png" alt=""
+        width="892" height="161"><br>
+      <br>
+      <h3> y comprobando la configuración:</h3>
+      <font size="+2">git config --global -e</font><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_31.png" alt=""
+        width="895" height="297"><br>
+      <br>
+      <h2><font color="#cc33cc"><a name="Obteniendo_ayuda"></a>Obteniendo
+
+
+
+
+
+
+
+
+          ayuda</font></h2>
+      <h3>Si alguna vez necesita ayuda mientras usa Git, hay tres formas
+        equivalentes de obtener el completo ayuda de la página de manual
+        (manpage) para cualquiera de los comandos de Git:</h3>
+      <font size="+2">$ git help &lt;verb&gt;<br>
+        $ git &lt;verb&gt; --help<br>
+        $ man git-&lt;verb&gt;<br>
+      </font>Por ejemplo, puede obtener la ayuda de la página de manual
+      para el comando git config ejecutando este <font size="+2">git
+        help config</font><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_18.png" alt=""
+        width="936" height="507"><br>
+      <br>
+      <h3 align="justify">Además, si no necesita la ayuda completa de la
+        página de manual, pero solo necesita una actualización rápida en
+        el opciones disponibles para un comando de Git, puede solicitar
+        la salida de "ayuda" más concisa con -h opción, como en:</h3>
+      <font size="+2">git add -h<br>
+      </font><br>
+      <img moz-do-not-send="true" src="images3/git_19.png" alt=""
+        width="938" height="585"><br>
+      <br>
+      <h2 align="justify"><font color="#cc33cc"><a
+            name="Conceptos_básicos_de_Git"></a>Conceptos básicos de Git</font></h2>
+      <h3 align="justify">cubriremos todos los aspectos básicos de
+        comando que necesita para hacer la gran mayoría de las cosas que
+        eventualmente dedicará su tiempo a hacer con Git. Al final,
+        debería poder configurar e inicializar un repositorio, comenzar
+        y dejar de rastrear archivos, y preparar , y confirmar cambios.
+        <br>
+      </h3>
+      <h3 align="justify">También le mostraremos cómo configurar Git
+        para ignorar ciertos archivos y patrones de archivo, cómo
+        deshacer errores rápida y fácilmente, cómo navegar por historial
+        de su proyecto y ver los cambios entre las confirmaciones, y
+        cómo empujar y extraer desde el control remoto repositorios.</h3>
+      <h3>Inicializar un repositorio en un directorio</h3>
+      <h3 align="justify">Si tiene un directorio de proyectos que
+        actualmente no está bajo control de versiones y desea comenzar
+        controlándolo con Git, primero debe ir al directorio de ese
+        proyecto. Si nunca has hecho esto, es se ve un poco diferente
+        según el sistema que esté ejecutando:<br>
+      </h3>
+      <h3 align="justify">para LINUX</h3>
+      <font size="+2">$ mkdir /home/msantos/proyecto_git</font><br>
+      <font size="+2">$ cd /home/msantos/proyecto_git<br>
+      </font><br>
+      <img moz-do-not-send="true" src="images3/git_20.png" alt=""
+        width="914" height="445"><br>
+      <br>
+      <h3>y tecleamos:</h3>
+      <font size="+2">$ git init</font><br>
+      <br>
+      <h3>Esto crea un nuevo subdirectorio llamado .git que contiene
+        todos los archivos necesarios del repositorio: un Esqueleto del
+        repositorio Git. En este punto, todavía no se realiza un
+        seguimiento de nada en su proyecto.</h3>
+      <img moz-do-not-send="true" src="images3/git_21.png" alt=""
+        width="916" height="454"><br>
+      <h3 align="justify">Si desea comenzar a controlar la versión de
+        los archivos existentes (en lugar de un directorio vacío), debe
+        probablemente comience a rastrear esos archivos y haga una
+        confirmación inicial. Puedes lograr eso con unos pocos comandos
+        de <u>git add </u>que especifican los archivos que desea
+        rastrear, seguidos de una <u>confirmación de git</u>:</h3>
+      <h3><font size="+1">$ git add *.c</font></h3>
+      <h3><font size="+1"> $ git add LICENSE</font></h3>
+      <h3><font size="+1"> $ git commit -m 'version proyecto inicial'</font></h3>
+      <br>
+      <h3>Repasaremos lo que hacen estos comandos en solo un minuto.</h3>
+      <h3>En este punto, tienes un repositorio de Git con archivos
+        rastreados y una confirmación (commit) inicial.</h3>
+      <h3>inicialmente solicitamos el estado de git:<br>
+      </h3>
+      <p><font size="+2">git status<br>
+        </font></p>
+      <p><font size="+2"><img moz-do-not-send="true"
+            src="images3/git_22.png" alt="" width="775" height="173"></font></p>
+      <h3>estamos observando que estamos en el arbol master (On branch
+        master)<br>
+      </h3>
+      <h3>en el directorio podemos "pasar" (copiar) un grupo de archivos
+        (directorio) que necesitamos "controlar", en este caso como
+        ejemplo copiamos al directorio el "directorio" Linux:</h3>
+      <img moz-do-not-send="true" src="images3/git_23.png" alt=""
+        width="665" height="71"><br>
+      <h3> al solicitar el status de git, mostrara que tiene un
+        directorio llamado Linux. Indicando que no se ha realizado el
+        "commit" para procesar el directorio:<br>
+      </h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_24.png" alt=""
+        width="840" height="230"><br>
+      <h3>Puede ver que su nuevo Directorio Linux no tiene seguimiento,
+        porque está bajo el encabezado <font color="#ff6600">Untracked
+          files:</font> "Archivos sin seguimiento" en su salida de
+        estado. Sin seguimiento básicamente significa que Git ve un
+        directorio que no tenías en la anterior instantánea
+        (confirmación) y que aún no se ha preparado; Git no comenzará a
+        incluirlo en tu confirmación instantáneas hasta que le digas
+        explícitamente que lo haga. Hace esto para que no comience a
+        incluir accidentalmente.</h3>
+      <h2><font color="#cc33cc"><a name="El_proceso_de_trabajo_de_GIT"></a>El
+
+
+
+          proceso de trabajo de GIT</font><br>
+      </h2>
+      <table width="100%" border="1" cellspacing="2" cellpadding="2">
+        <tbody>
+          <tr>
+            <td valign="top" align="center">
+              <h3>COMPUTADORA LINUX / Mac / windows</h3>
+            </td>
+            <td valign="top" align="center">
+              <h3><br>
+              </h3>
+            </td>
+            <td valign="top" align="center">
+              <h3>Stage</h3>
+            </td>
+            <td valign="top" align="center">
+              <h3>Commit</h3>
+            </td>
+            <td valign="top" align="center">
+              <h3>Server</h3>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top"><font size="+1">Usuario<br>
+              </font></td>
+            <td rowspan="4" colspan="1" valign="middle" align="justify">
+              <div align="justify"><font size="+1">Pasamos todos los
+                  archivos que nos interesen guardar en el repositorio
+                  que serán actualizados</font><font size="+1">&nbsp;estos
+
+
+
+                  archivos serán trasladados a lo que se llama Stage
+                  ---------&gt;</font><br>
+              </div>
+              <font size="+1"><br>
+              </font><font size="+1"><br>
+              </font></td>
+            <td rowspan="4" colspan="1" valign="top">
+              <div align="justify"><font size="+1">Punto intermedio que
+                  indica cuales son los archivos que&nbsp; van al
+                  repositorio, y solo pasaran aquellos que seleccionemos
+                </font><font size="+1">ya que se han establecido los
+                  archivos a guardar en el repositorio usamos el
+                  paso&nbsp; hacia commit ---------&gt;</font><br>
+              </div>
+              <font size="+1"><br>
+              </font><font size="+1"><br>
+              </font></td>
+            <td rowspan="4" colspan="1" valign="top">
+              <div align="justify"><font size="+1">es el lugar donde
+                  esta definido el repositorio </font><font size="+1">es
+
+
+
+                  opcional, pero se recomienda enviat el repositorio
+                  hacia un servidor en la nuble&nbsp; donde estaran
+                  todos los archivos que nos interesan</font><br>
+              </div>
+              <font size="+1"><br>
+              </font><font size="+1"><br>
+              </font></td>
+            <td rowspan="4" colspan="1" valign="top" align="center">
+              <h3><font size="+1">GIT<br>
+                  HUB<br>
+                </font><font size="+1"><br>
+                </font><font size="+1"><br>
+                </font><font size="+1"><br>
+                </font></h3>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top"><font size="+1">Archivo
+                1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <br>
+              </font></td>
+          </tr>
+          <tr>
+            <td valign="top"><font size="+1">Archivo 2<br>
+              </font></td>
+          </tr>
+          <tr>
+            <td valign="top"><font size="+1">Archivo n ....<br>
+              </font></td>
+          </tr>
+          <tr>
+            <td valign="top">
+              <h3>Acciones </h3>
+            </td>
+            <td valign="top">
+              <h3>git add</h3>
+            </td>
+            <td valign="top">
+              <h3><br>
+              </h3>
+            </td>
+            <td valign="top">
+              <h3>git commit (comprometer archivos)</h3>
+            </td>
+            <td valign="top"><br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>ahora git agregara todos los archivos del directorio a un
+        "stage", en este ejemplo estoy seleccionando un directorio muy
+        extenso, usando *.* que estos metacaracteres indican que tome
+        TODO, esto solo si estamos seguros que es lo que queremos, puede
+        ser que solo los de *.hmtl sean los que estamos haciendo
+        seguimiento, u otro tipo de archivo.<br>
+      </h3>
+      <h3><font size="+2">git add *</font><br>
+      </h3>
+      <h3>(git add *) indica que todos los direcrorios / archivos lo
+        estaremos preparando, para enviarlos a stage, y solicitamos el
+        estatus de git <br>
+      </h3>
+      <h3><font size="+2">git status</font></h3>
+      <font size="+2"> </font><br>
+      <img moz-do-not-send="true" src="images3/git_25.png" alt=""
+        width="873" height="343"><br>
+      <h3>.</h3>
+      <h3>.</h3>
+      <h3>.</h3>
+      <img moz-do-not-send="true" src="images3/git_26.png" alt=""
+        width="898" height="415"><br>
+      <h3>esto pude tardar tiempo, fueron agregados los archivos del
+        directorio de Linux, en la imagen de git status esta mostrando
+        que estamos en la rama master: <br>
+      </h3>
+      <p><font size="+1"><font size="+2" color="#009900"># On branch
+            master<br>
+            #</font><br>
+        </font>&nbsp;<br>
+      </p>
+      <h3>y hay cambios listos para realizar commit (comprometidos)</h3>
+      <p><br>
+      </p>
+      <font size="+2" color="#009900"># Changes to be committed:</font><br>
+      <h3>En caso que algun archivo ya lo necesitemos, se tiene que
+        hacer el mismo proceso git add, el archivo borrado, si asi es,
+        se agrega el archivo que ya no queremos y hace de nuevo todo el
+        proceso hasta llegar a GIT HUB.</h3>
+      <h3>vamos a realizar un proceso donde pasamos archivos modificados
+        sin el estado de commit, al directorio de LInux:</h3>
+      <h3>entramos al repositorio local: cd proyecto_git</h3>
+      <h3>mostramos el directorio: ls -l</h3>
+      <h3>y copiamos con cp (copy) el directorio de origen, al que esta
+        en el directorio proyecto_git (repositorio), de forma que pasen
+        todos los archivos:<br>
+      </h3>
+      <p><font size="+2">cp
+          /home/msantos/Documentos/html/cursos/Linux/*.* Linux/<br>
+        </font>-----------------------------------------------------------------------------------------------------------&nbsp;&nbsp;
+
+
+
+        ++++++<br>
+      </p>
+      <h3>Directorio donde se estan realizando cambios &nbsp; &nbsp;
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;
+        &nbsp; &nbsp; Directorio local del repositorio </h3>
+      <p><br>
+      </p>
+      <img moz-do-not-send="true" src="images3/git_32.png" alt=""
+        width="883" height="193">
+      <h3>Solicitamos estatus</h3>
+      <h3><font size="+2">git status</font></h3>
+      <img moz-do-not-send="true" src="images3/git_33.png" alt=""
+        width="885" height="591"><br>
+      <br>
+      <h3>Notamos que ha detectado un cambio en los archivos nuevos es
+        de unidad3.html</h3>
+      <h3>para que realice el cambio debemos de nuevo agregar con git
+        add</h3>
+      <img moz-do-not-send="true" src="images3/git_34.png" alt=""
+        width="665" height="59"><br>
+      <br>
+      <h3>y de nuevo revisamos el status, y lo ha incluido en el stage</h3>
+      <img moz-do-not-send="true" src="images3/git_35.png" alt=""
+        width="884" height="152"><br>
+      <br>
+      <h3>lo que estamos haciendo en realidad, es estar pasando los
+        archivos que se han modificado</h3>
+      <h2><font color="#cc33cc"><a name="Commit"></a>Commit</font></h2>
+      <h3>ya estan listos para realizar el commit (comprometer los
+        archivos)</h3>
+      <h3>git commit -m "revision de diseños html 2.2"</h3>
+      <br>
+      <h3 align="justify">debemos de poner un nombre de lo que estamos
+        realizando entre comillas dobles para saber en que paso vamos en
+        revisiones en este ejemplo revision de diseños html 2.2</h3>
+      <img moz-do-not-send="true" src="images3/git_36.png" alt=""
+        width="878" height="220"><img moz-do-not-send="true"
+        src="images3/git_37.png" alt="" width="879" height="589">
+      <h3>solicitamos el status: <font color="#ff0000">git status</font></h3>
+      <img moz-do-not-send="true" src="images3/git_38.png" alt=""
+        width="880" height="237">
+      <h3>y no hay procesos pendientes de commit<br>
+      </h3>
+      <h3>el segundo metodo es el siguiente, volvemos a copiar del
+        directorio original deonde estoy trabajando modificando esta
+        pagina:</h3>
+      <img moz-do-not-send="true" src="images3/git_39.png" alt=""
+        width="881" height="212">
+      <h3> ahora he realizado la copia con algo diferente, la ruta
+        (path) es el mismo de origen pero agregue -R (Recursivo,
+        considera también los directorios y subdirectorios, y como estoy
+        en el directorio Linux del repositorio colocamos . que significa
+        el directorio actual.<br>
+      </h3>
+      <br>
+      <font size="+2" color="#ff0000">git status</font><br>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_40.png" alt=""
+        width="883" height="543">
+      <h3>y al usar git status, también nos indica que hay cambios en un
+        archivo unidad_3.html</h3>
+      <h3>Estando en el contenedor proyecto_git, lo agregamos es
+        importante que realicemos esto cada ocación que se modifique
+        algo:</h3>
+      <p><font size="+2" color="#ff0000">git add Linux/unidad_3.html</font></p>
+      <h3 align="justify">debemos ser cuidadosos en el caso de los
+        directorios para añadir a git ya que se debe de establecer la
+        ruta completa, ve el error que presenta cuando no se le indica
+        la ruta, y corrigendo la ruta :</h3>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_41.png" alt=""
+        width="881" height="206">
+      <h3>regresamos al directorio master del repositorio, proyecto_git,
+        ahora ejecutamos commit de esta otra forma:<br>
+      </h3>
+      <br>
+      <font size="+2" color="#ff0000">git commit</font><br>
+      <br>
+      <h3>lo que sucedera es, QUE SE ABRIRA EL EDITOR DE TEXTOS QUE
+        SELECCIONAMOS COMO PREFERIDO EN LA CONFIGURACIÓN INICIAL<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/git_42.png" alt=""
+        width="877" height="594">
+      <h3>y agregamos al inicio una descripción de este commit, esta en
+        la primer linea y en mayusculas, y se observa el archivo a
+        agregar, unidad_3.html y guardamos el archivo<font
+          color="#ff0000"> Esc:wq</font></h3>
+      <img moz-do-not-send="true" src="images3/git_44.png" alt=""
+        width="885" height="606">
+      <h3>al terminar tenemos una información de la operación realizada:<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/git_45.png" alt=""
+        width="879" height="238"> <br>
+      <h3>nos proporciona mas información sobre los que realizo,
+        solicitamos su status: </h3>
+      <font size="+2" color="#ff0000">git status</font><br>
+      <br>
+      <br>
+      <img moz-do-not-send="true" src="images3/git_46.png" alt=""
+        width="888" height="207">
+      <h3 align="justify">Eliminaremos un archivo del directorio Linux,
+        nos cambiamos al directorio Linux/ ...&nbsp; cd Linux/ y con ls
+        -l|more revisamos, quiero eliminar el archivo GuiaLinux.pdf, y
+        escribimos rm GuiaLinux.pdf, y ENTER, y con git status,
+        revisamos que esta preparado para ser eliminado del directorio,
+        y GIT lo detecta.</h3>
+      <h3 align="justify"><img moz-do-not-send="true"
+          src="images3/git_48.png" alt="" width="888" height="61"><img
+          moz-do-not-send="true" src="images3/git_49.png" alt=""
+          width="873" height="364"> </h3>
+      <h3>Subimos un nivel de directorio cd .. , quedamos en el
+        directorio proyecto_git y&nbsp; git status de nuevo<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/git_50.png" alt=""
+        width="885" height="387"><br>
+      <br>
+      <h3>esta preparado para ser eliminado del árbol del repositorio,
+        realizamos el commit : git commit -m "Eliminando archivo pdf", y
+        se puede observar que hay un error no se ha registrado la
+        eliminacion:<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/git_53.png" alt=""
+        width="879" height="401">
+      <h3>Ahora realizamos en git,&nbsp; para asegurar que se ha
+        eliminado correctamente:</h3>
+      <h3><font color="#ff0000">git rm Linux/GuiaLinux.pdf</font></h3>
+      <p><br>
+      </p>
+      <img moz-do-not-send="true" src="images3/git_54.png" alt=""
+        width="872" height="163">
+      <h3>el resultado de esto, y aplicando status:<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/git_55.png" alt=""
+        width="864" height="291">
+      <h3>Ahora registro la eliminacion, la siguiente imagen se observa
+        toda la secuencia, usamos status y commit, y realiza la
+        eliminacion:<br>
+      </h3>
+      <p><img moz-do-not-send="true" src="images3/git_56.png" alt=""
+          width="867" height="501"><br>
+      </p>
+      <h3>Revisemos si efectivamente sucedio la eliminacion, revisemos
+        la siguiente imagen, de nuevo nos cambiamos al directorio
+        Linux:&nbsp; cd Linux/,&nbsp; ls -l|more, y efectivamete el
+        archivo pdf no esta:</h3>
+      <img moz-do-not-send="true" src="images3/git_57.png" alt=""
+        width="875" height="501">
+      <h3 align="justify">Ahora borremos a git_notas.txt, con git, pero
+        podemos recuperaros desde stage, las razónes pueden ser muchas:
+        porque no era el archivo a borrar, o solo me equivoque de
+        archivo, en este punto podemos restaurar antes de realizar
+        commit:</h3>
+      <h3>primero borremos del árbol master el archivo, git_notas.txt.<br>
+      </h3>
+      <p><font size="+2" color="#ff0000">git rm Linux/git_notas.txt</font><font
+          color="#ff0000"><br>
+        </font> </p>
+      <font color="#ff0000"> </font>
+      <p><font size="+2" color="#ff0000">git status</font><br>
+      </p>
+      <h3>aqui nos da una advertencia si lo queremos restaurar (antes de
+        comprometerlo "commit")<br>
+      </h3>
+      <h3>usamos:<br>
+      </h3>
+      <p><font size="+2"><font color="#ff0000">git checkout HEAD
+            git_notas.txt</font><br>
+        </font></p>
+      <h3>y de nuevo</h3>
+      <p></p>
+      <p><font size="+2">&nbsp;<br>
+          <font color="#ff0000">git status</font><br>
+        </font></p>
+      <h3>y ya no esta marcado para ser borrado, y es restituido</h3>
+      <p><img moz-do-not-send="true" src="images3/git_58.png" alt=""
+          width="788" height="391"><br>
+      </p>
+      <h3 align="justify">recuperado de stage<br>
+      </h3>
+      <h3 align="justify">Ahora nos damos cuenta que el archivo
+        GuiaLinux.pdf no era lo que queríamos borrar, pero ya se
+        realizao el commit, podemos recuperlo ?<br>
+      </h3>
+      <h3 align="justify">si es posible, sigamos estas instarucciones:<br>
+      </h3>
+      <font size="+2" color="#ff0000">git log -- Linux/GuiaLinux.pdf</font><br>
+      <h3 align="justify">nos presenta la tabla hash, la tabla hash
+        asocia llaves o claves con valores. La operación principal que
+        soporta de manera eficiente es la búsqueda: permite el acceso a
+        los elementos almacenados a partir de una clave generada (usando
+        el nombre o número de cuenta, por ejemplo). Funciona
+        transformando la clave un número que identifica la posición
+        donde la tabla hash localiza el valor deseado)<br>
+      </h3>
+      <h3>observemos que esta el titulo "Eliminando archivo pdf"&nbsp; y
+        debajo de el la palabra commit con un numero (este es el hash de
+        la operacion) d1e1ab59579b474ced0484269c7a2baab46c5c64, este lo
+        usaremos para recupera el archivo comprometido.</h3>
+      <h3>y finalmente la forma de recuperacion usando hash<br>
+      </h3>
+      <p><font size="+2" color="#ff0000">git checkout
+          d1e1ab59579b474ced0484269c7a2baab46c5c64 --
+          Linux/GuiaLinux.pdf</font><font color="#ff0000"><br>
+        </font> </p>
+      <font color="#ff0000"> </font>
+      <p><br>
+      </p>
+      <img moz-do-not-send="true" src="images3/git_59.png" alt=""
+        width="876" height="594">
+      <h3>al finalizar podemos revisar si se ha realizado la
+        recuperacion:</h3>
+      <img moz-do-not-send="true" src="images3/git_60.png" alt=""
+        width="957" height="368">
+      <h3>Revisemos ahora que sucede cuando cambiamos de nombre a un
+        archivo en el árbol master de git. <br>
+      </h3>
+      <h3>con mv cambiamos de nombre aun atchivo dentro del
+        directorioLinus, que se llama git_notas.txt y la cambiaremos a
+        git_notas_2.txt</h3>
+      <p><font size="+1" color="#ff0000"><font size="+2">mv
+            Linux/git_notas.txt Linux/git_notas_2.txt</font><br>
+        </font></p>
+      <h3>solicitamos git status</h3>
+      <h3>entre otras cosas nos esta avisando que el archivo anterior de
+        GuiaLinux.pdf no ha sido comprometido.</h3>
+      <h3>y que Linux/git_notas.txt ha sido eliminado y que
+        Linux/git_notas_2.txt se ha añadido, esto es porque mv lo que
+        realiza es copiar el archivo inicial y pegarlo con otro nombre,
+        y eliminar el archivo inicial, y esto no solo sucede en Linux,
+        tambien en MacOS y windows, de ahi que se ven 2 operaciones
+        pendientes para comprometerlos.<br>
+      </h3>
+      <p><img moz-do-not-send="true" src="images3/git_61.png" alt=""
+          width="983" height="535"><br>
+      </p>
+      <h3>usemos <br>
+      </h3>
+      <p><font size="+2" color="#ff0000">git add Linux/GuiaLinux.pdf
+          Linux/git_notas_2.txt</font><br>
+        <br>
+      </p>
+      <h3>nos envia una advertencia sobre el archivo git_notas_2.txt ,
+        que indica el cambio de crlf a lf en este archivo&nbsp;</h3>
+      <h3>y la <font size="+2">eliminación</font> del archivo
+        git_notas.txt (importante desde git también es posible borrar,
+        renombrar archivos)<br>
+      </h3>
+      <p><font size="+2" color="#ff0000">git rm Linux/git_notas.txt<br>
+          <br>
+        </font></p>
+      <img moz-do-not-send="true" src="images3/git_62.png" alt=""
+        width="963" height="191">
+      <h3>de nuevo </h3>
+      <p><font size="+2" color="#ff0000">git status<br>
+        </font></p>
+      <h3>vemos los cambios realizados y listos para comprometerlos</h3>
+      <p><font size="+2" color="#ff0000"><br>
+        </font> </p>
+      <img moz-do-not-send="true" src="images3/git_63.png" alt=""
+        width="978" height="357">
+      <h3>realizamos commit con el nombre de Renombrando archivo:<br>
+      </h3>
+      <img moz-do-not-send="true" src="images3/git_64.png" alt=""
+        width="975" height="248">
+      <p><br>
+      </p>
+      <p><br>
+      </p>
+      <p><br>
+      </p>
+      <p><br>
+      </p>
+      <p><br>
+        <br>
+      </p>
+      <div align="justify">
+        <h3><a name="IoT"></a>IoT El internet de las cosas (loT, por sus
+          siglas en inglés) es un sistema de dispositivos de computación
+          interconectados: máquinas mecánicas y digitales, objetos,
+          animales o personas que tienen identificadores únicos y la
+          capacidad de transferir datos a través de una red, sin
+          requerir de interacciones humano a humano o humano a
+          computadora, fusionando de alguna manera el mundo digital con
+          el mundo físico. Gracias a las redes inalámbricas y el bajo
+          costo de los nuevos procesadores, permite que desde una
+          aspiradora inteligente hasta un vehículo autónomo, formen
+          parte de la IoT.</h3>
+      </div>
+      <br>
+https://www.redhat.com/es/topics/virtualization/what-is-virtualization<br>
+      (1)
+https://blog.desdelinux.net/gnome-boxes-una-excelente-herramienta-de-virtualizacion-open-source/<br>
+      https://desarrolloweb.com/home/git#track211<br>
+      https://www.atlassian.com/es/git/tutorials/what-is-git<br>
+      https://codigofacilito.com/articulos/que-es-git<br>
+https://developer.mozilla.org/es/docs/Learn/Tools_and_testing/GitHub#:~:text=Git%20es%20un%20ejemplo%20de,caracter%C3%ADsticas%20de%20administraci%C3%B3n%20de%20proyectos<br>
+      <br>
+      <font size="+2">
+        <title></title>
+        <meta name="generator" content="Bluefish 2.2.10">
+        <style type="text/css">
+		@page { margin: 2cm }
+		h1 { margin-bottom: 0.21cm }
+		h1.western { font-family: "Liberation Serif", serif }
+		h1.cjk { font-family: "WenQuanYi Zen Hei Sharp"; font-size: 24pt }
+		h1.ctl { font-family: "Lohit Devanagari"; font-size: 24pt }
+		p { margin-bottom: 0cm; line-height: 100% }
+		a:link { so-language: zxx }
+	</style> </font> </div>
+  </body>
+</html>
